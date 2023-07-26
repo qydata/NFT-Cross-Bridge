@@ -1,0 +1,10 @@
+version: "3"
+services:
+  ct-bridge-api:
+    container_name: ct-bridge-api
+    image: registry.cn-hangzhou.aliyuncs.com/ctexploder/ct-bridge-api
+    restart: "on-failure"
+    volumes:
+      - ./config/config.json:/opt/app/config.json
+    ports:
+      - 8088:8080

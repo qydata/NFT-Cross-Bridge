@@ -1,0 +1,8 @@
+version: "3"
+services:
+  ct-bridge-core:
+    container_name: ct-bridge-core
+    image: registry.cn-hangzhou.aliyuncs.com/ctexploder/ct-bridge-core
+    restart: "on-failure"
+    volumes:
+      - ./config/config.json:/opt/app/config/config.json
