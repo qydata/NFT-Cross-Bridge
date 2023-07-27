@@ -41,6 +41,15 @@ func StrToBigInt(val string) *big.Int {
 	return big.NewInt(int64(integer))
 }
 
+func StrToBigInt64(val string) *big.Int {
+	bb, err := big.NewInt(0).SetString(val, 10)
+	if err != true {
+		println(err)
+		return big.NewInt(0)
+	}
+	return common.BigToHash(bb).Big()
+}
+
 func BigIntSliceToStrSlice(vv []*big.Int) []string {
 	ss := make([]string, len(vv))
 	for idx, v := range vv {
@@ -54,6 +63,15 @@ func StrSliceToBigIntSlice(ss []string) []*big.Int {
 	vv := make([]*big.Int, len(ss))
 	for idx, s := range ss {
 		vv[idx] = StrToBigInt(s)
+	}
+
+	return vv
+}
+
+func StrSliceToBigInt64Slice(ss []string) []*big.Int {
+	vv := make([]*big.Int, len(ss))
+	for idx, s := range ss {
+		vv[idx] = StrToBigInt64(s)
 	}
 
 	return vv

@@ -61,7 +61,7 @@ func (e *Engine) sendERC1155FillSwapRequest(s *erc1155.Swap, dryRun bool) (*type
 		common.HexToAddress(tokenAddr),
 		common.HexToAddress(s.Recipient),
 		util.StrToBigInt(tokenChainID),
-		util.StrSliceToBigIntSlice(ids),
+		util.StrSliceToBigInt64Slice(ids),
 		util.StrSliceToBigIntSlice(amounts),
 	)
 	if err != nil {

@@ -51,13 +51,14 @@ func (e *Engine) sendERC721FillSwapRequest(s *erc721.Swap, dryRun bool) (*types.
 	}
 
 	txOpts.NoSend = dryRun
+
 	tx, err := e.deps.ERC721SwapAgent[dstChainID].Fill(
 		txOpts,
 		common.HexToHash(s.RequestTxHash),
 		common.HexToAddress(tokenAddr),
 		common.HexToAddress(s.Recipient),
 		util.StrToBigInt(tokenChainID),
-		util.StrToBigInt(s.TokenID),
+		util.StrToBigInt64(s.TokenID),
 		s.TokenURI,
 	)
 	if err != nil {

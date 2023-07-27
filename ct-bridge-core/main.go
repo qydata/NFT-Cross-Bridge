@@ -60,6 +60,7 @@ func printUsage() {
 }
 
 func main() {
+
 	initFlags()
 
 	configType := viper.GetString(flagConfigType)

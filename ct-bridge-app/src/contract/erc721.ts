@@ -27,7 +27,7 @@ class Contract721 {
         console.info(response.hash);
         contract.on('Approval', (owner, approved, _tokenId) => {
           const tokenIdHex = ethers.BigNumber.from(
-            _tokenId.toNumber().toString()
+            _tokenId.toString()
           ).toHexString();
           if (
             approved.toLowerCase() === contractAddress.toLowerCase() &&

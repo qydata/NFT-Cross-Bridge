@@ -91,13 +91,16 @@ export const getDataFromTokenUri = async (
   description: string;
 }> => {
   try {
-    const response = await axios.get<{
+    const HTTP_AXIOS = axios.create();
+    const response = await HTTP_AXIOS.get<{
       data: {
         name: string;
         image: string;
         description: string;
       };
-    }>(tokenUri);
+    }>(tokenUri, {
+      timeout: 5000 //设置时间超时，单位毫秒;
+    });
     return response.data.data || response.data;
   } catch (error: any) {
     console.error(error.response);

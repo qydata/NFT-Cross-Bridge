@@ -71,7 +71,7 @@ func (e *Engine) retrieveERC721TokenURI(tokenAddr, tokenID, chainID string) (str
 	opts := &bind.CallOpts{
 		Pending: true,
 	}
-	tID := util.StrToBigInt(tokenID)
+	tID := util.StrToBigInt64(tokenID)
 	uri, err := token.TokenURI(opts, tokenAddr, tID)
 	if err != nil {
 		if strings.Contains(err.Error(), corecommon.ErrFunctionNotFound.Error()) {

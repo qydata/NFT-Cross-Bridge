@@ -136,7 +136,7 @@ const NFTDetail: React.FC<NFTDetailPropType> = ({
       );
     }
     if (isApproved) {
-      message.success('Approve NFT successfully');
+      message.success('成功批准 NFT');
       checkNftStatus();
     } else {
       setNftStatus(NftStatus.NotApprove);
