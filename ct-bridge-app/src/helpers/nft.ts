@@ -19,38 +19,39 @@ export const parseNFTData = async (
 ): Promise<INFTParsedTokenAccount[]> => {
   const tokens = tokenList.reduce((arr, covalent) => {
     if (covalent.nft_data) {
-      covalent.nft_data.forEach((data) =>
+      covalent.nft_data.forEach((data) => {
         arr.push({
           walletAddress,
           contractAddress: covalent.contract_address,
           amount: data.token_balance,
           decimals: covalent.contract_decimals,
-          uiAmount: Number(
-            formatUnits(data.token_balance, covalent.contract_decimals)
-          ),
-          uiAmountString: formatUnits(
-            data.token_balance,
-            covalent.contract_decimals
-          ),
+          // uiAmount: Number(
+          //   formatUnits(data.token_balance, covalent.contract_decimals)
+          // ),
+          uiAmount: Number(data.token_balance),
+          // uiAmountString: formatUnits(
+          //   data.token_balance,
+          //   covalent.contract_decimals
+          // ),
+          uiAmountString: data.token_balance,
           symbol: covalent.contract_ticker_symbol,
           name: covalent.contract_name,
           logo: covalent.logo_url,
           tokenId: data.token_id,
           uri: data.token_url,
-          animation_url: data.external_data.animation_url,
-          external_url: data.external_data.external_url,
-          image: data.external_data.image,
-          image_256: data.external_data.image_256,
-          nftName: data.external_data.name,
-          description: data.external_data.description,
+          animation_url: data.external_data?.animation_url,
+          external_url: data.external_data?.external_url,
+          image: data.external_data?.image,
+          image_256: data.external_data?.image_256,
+          nftName: data.external_data?.name,
+          description: data.external_data?.description,
           standard,
           chainId
-        })
-      );
+        });
+      });
     }
     return arr;
   }, [] as INFTParsedTokenAccount[]);
-
   return Promise.all(
     tokens.map(async (token) => {
       let image = token.image;

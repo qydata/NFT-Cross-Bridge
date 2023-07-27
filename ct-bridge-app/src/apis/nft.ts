@@ -14,20 +14,28 @@ import setting from 'src/setting';
 
 export type INFTList = Array<{
   contract_decimals: number;
+  decimals: string;
   contract_name: string;
   contract_ticker_symbol: string;
   contract_address: string;
+  contractAddress: string;
+  token_balance: string;
   supports_erc: string[];
   logo_url: string;
   last_transferred_at: string;
-  type: 'cryptocurrency' | 'nft';
+  type: string;
+  id: string;
   balance: string;
+  name: string;
+  symbol: string;
   balance_24h: any;
   quote_rate: number;
   quote_rate_24h: number;
   quote: number;
   quote_24h: any;
   nft_data: any;
+  image: string;
+  metadata: any;
 }>;
 
 export const getNFTList = async (
@@ -35,19 +43,43 @@ export const getNFTList = async (
   address: string,
   nftStandard: NFTStandard
 ): Promise<INFTParsedTokenAccount[]> => {
-  const url = `https://api.covalenthq.com/v1/${chainId}/address/${address}/balances_v2/?key=${setting.COVALENT_API_KEY}&nft=true`;
+  const url = `${setting.API_URL}/v1/${chainId}/${address}`;
   const response = await axios.get<{
+    result: INFTList;
+    status: number;
     data: {
-      items: INFTList;
+      status: number;
     };
   }>(url);
-  if (response.status === 200) {
-    const items = response.data.data.items.filter(
-      (item) =>
-        item.type === 'nft' &&
-        item.nft_data &&
-        item.supports_erc?.includes(nftStandard)
-    );
+  if (response.data.status == 1) {
+    const items = [];
+    for (const item of response.data.result) {
+      if (item.type == 'ERC-721' || item.type == 'ERC-1155') {
+        if (item.metadata) {
+          item.nft_data = [item.metadata];
+        } else {
+          item.nft_data = [{}];
+        }
+        item.contract_address = item.contractAddress;
+        item.contract_decimals = parseInt(item.decimals);
+        item.contract_name = item.name;
+        item.contract_ticker_symbol = item.symbol;
+        item.token_balance = item.balance;
+        item.nft_data[0].token_id = item.id;
+        item.nft_data[0].token_balance = item.balance;
+        item.nft_data[0].external_data = {};
+        item.nft_data[0].external_data.image = item.metadata?.image;
+        item.image = item.metadata?.image;
+        item.logo_url = item.metadata?.image;
+        if (item.type == 'ERC-721') {
+          item.supports_erc = ['erc721'];
+        } else if (item.type == 'ERC-1155') {
+          item.supports_erc = ['erc1155'];
+        }
+        items.push(item);
+      }
+    }
+    console.log(items);
     return parseNFTData(address, items, nftStandard, chainId);
   }
   return [];

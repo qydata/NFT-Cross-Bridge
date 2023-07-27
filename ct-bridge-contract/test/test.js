@@ -33,10 +33,13 @@ describe("SwapAgent", function () {
     const [deployer] = await ethers.getSigners();
     deployerAddress = await deployer.getAddress();
 
-    const swapAgentFactory = await ethers.getContractFactory("ERC721SwapAgent", deployer);
-    const swapAgentContract = await swapAgentFactory.attach('0xEfB4bC4755A7569bC34aDEe01a4C2fe42b19554c');
+    const swapAgentFactory = await ethers.getContractFactory("MirroredERC1155");
+    const swapAgentContract = await swapAgentFactory.attach('0x275ffC2A8459F0145145c08027f28B5f910f9db1');
     
     console.log(await swapAgentContract.owner())
+    console.log(await swapAgentContract.uri('26067885190938743157339440157251197165479395358752782221930628278050914522887'))
+    // console.log(await swapAgentContract.name())
+    console.log(await swapAgentContract.symbol())
   });
 
 });

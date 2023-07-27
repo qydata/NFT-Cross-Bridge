@@ -63,7 +63,12 @@ const StatusPage: React.FC = () => {
     {
       title: 'NFT ID',
       dataIndex: 'token_id',
-      key: 'token_id'
+      key: 'token_id',
+      render: (text: string, record: any) => (
+        <>
+          <TextAddress address={text} length={4} />
+        </>
+      )
     },
     {
       title: '转账在',
