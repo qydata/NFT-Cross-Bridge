@@ -61,7 +61,8 @@ export const getNFTList = async (
       }
       if (
         (item.type == 'ERC-721' || item.type == 'ERC-1155') &&
-        item.supports_erc?.includes(nftStandard)
+        item.supports_erc?.includes(nftStandard) &&
+        item.id
       ) {
         if (item.metadata) {
           item.nft_data = [item.metadata];
