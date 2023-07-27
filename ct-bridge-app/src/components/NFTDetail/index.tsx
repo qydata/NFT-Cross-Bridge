@@ -73,6 +73,8 @@ const NFTDetail: React.FC<NFTDetailPropType> = ({
   const checkIsApproved = async () => {
     const tokenIdHex = ethers.BigNumber.from(tokenId!.toString()).toHexString();
     console.log(tokenIdHex);
+    console.log(standard);
+    console.log(standard === NFTStandard.ERC_721);
     if (standard === NFTStandard.ERC_721) {
       return contractErc721.getApprove(
         chainData.swapAgent721Address,

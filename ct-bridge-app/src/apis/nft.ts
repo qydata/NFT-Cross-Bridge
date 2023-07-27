@@ -54,7 +54,15 @@ export const getNFTList = async (
   if (response.data.status == 1) {
     const items = [];
     for (const item of response.data.result) {
-      if (item.type == 'ERC-721' || item.type == 'ERC-1155') {
+      if (item.type == 'ERC-721') {
+        item.supports_erc = ['erc721'];
+      } else if (item.type == 'ERC-1155') {
+        item.supports_erc = ['erc1155'];
+      }
+      if (
+        (item.type == 'ERC-721' || item.type == 'ERC-1155') &&
+        item.supports_erc?.includes(nftStandard)
+      ) {
         if (item.metadata) {
           item.nft_data = [item.metadata];
         } else {
@@ -76,6 +84,7 @@ export const getNFTList = async (
         } else if (item.type == 'ERC-1155') {
           item.supports_erc = ['erc1155'];
         }
+        console.log(item.type);
         items.push(item);
       }
     }
