@@ -204,10 +204,10 @@ const NFTDetail: React.FC<NFTDetailPropType> = ({
         </Button>
       </div>
       <Row gutter={24}>
-        <Col span={12}>
+        <Col lg={12} md={24} sm={24} xs={24}>
           <Image src={image!} alt={name!} width='100%' />
         </Col>
-        <Col span={12} className='detail-container'>
+        <Col lg={12} md={24} sm={24} xs={24} className='detail-container'>
           <Title level={5}>名称</Title>
           <p className='detail'>{name}</p>
           <Title level={5}>NFT地址</Title>

@@ -5,10 +5,12 @@ const StatusPage = styled.div`
     text-align: center;
     margin-bottom: 24px;
   }
+
   .connect-wallet-container {
     display: flex;
     padding-bottom: 16px;
     justify-content: flex-end;
+
     .ant-btn {
       width: 240px;
     }
@@ -16,6 +18,17 @@ const StatusPage = styled.div`
 
   .ant-table-thead .ant-table-cell {
     font-weight: bold;
+  }
+
+  @media all and (orientation: portrait) {
+    /*竖屏*/
+    .ant-table table {
+      width: 200%;
+      overflow: scroll;
+    }
+  }
+  @media all and (orientation: landscape) {
+    /*横屏*/
   }
 `;
 export default StatusPage;

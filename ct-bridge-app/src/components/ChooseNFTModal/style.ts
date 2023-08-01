@@ -85,7 +85,9 @@ const ChooseNFTModalStyle = styled(Modal)`
   .ant-radio-group {
     font-weight: bold;
     &.ant-radio-group-solid
-      .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
+      .ant-radio-button-wrapper-checked:not(
+        .ant-radio-button-wrapper-disabled
+      ) {
       background: #3fafac;
       font-family: monospace;
       border-color: #3fafac;
@@ -95,7 +97,9 @@ const ChooseNFTModalStyle = styled(Modal)`
         color: white;
       }
     }
-    .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled)::before {
+    .ant-radio-button-wrapper-checked:not(
+        .ant-radio-button-wrapper-disabled
+      )::before {
       background: #3fafac;
     }
     .ant-radio-button-wrapper:hover {
@@ -119,6 +123,17 @@ const ChooseNFTModalStyle = styled(Modal)`
       width: 200px;
       margin-left: 8px;
     }
+  }
+  @media all and (orientation: portrait) {
+    /*竖屏*/
+    .ant-modal-content {
+      width: 100%;
+    }
+    .ant-card {
+    }
+  }
+  @media all and (orientation: landscape) {
+    /*横屏*/
   }
 `;
 export default ChooseNFTModalStyle;

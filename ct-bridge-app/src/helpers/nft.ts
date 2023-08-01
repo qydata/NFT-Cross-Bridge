@@ -1,4 +1,3 @@
-import { formatUnits } from 'ethers/lib/utils';
 import { getDataFromTokenUri } from 'src/apis/nft';
 import {
   CovalentData,

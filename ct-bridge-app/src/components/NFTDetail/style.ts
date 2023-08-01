@@ -36,5 +36,11 @@ const NFTDetailStyle = styled.div`
     margin-top: 8px;
     color: red;
   }
+  @media all and (orientation: portrait) {
+    /*竖屏*/
+  }
+  @media all and (orientation: landscape) {
+    /*横屏*/
+  }
 `;
 export default NFTDetailStyle;

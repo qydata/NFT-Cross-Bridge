@@ -56,9 +56,9 @@ const MyNFTPage: React.FC = () => {
             <Title level={5}>加载可用NFT</Title>
           </div>
         ) : items.length > 0 ? (
-          <Row gutter={[0, 16]} className='image-container'>
+          <Row gutter={16} className='image-container'>
             {items.map((item, index) => (
-              <Col span={6} key={index}>
+              <Col lg={6} md={12} sm={12} xs={12} key={index}>
                 <Card
                   hoverable
                   cover={

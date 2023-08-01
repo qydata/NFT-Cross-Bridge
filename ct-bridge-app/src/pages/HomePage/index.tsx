@@ -18,7 +18,7 @@ const HomePage: React.FC = () => {
             <img src={`/${chain.value}.svg`} />
           ))}
         </div>
-        <span className='bridge'>
+        <div className='bridge'>
           {`
                 ░░▒▒░░░░░░░░▒▒▒▒▒▒▒▒░░  ▒▒  ░░░░                          
                 ░░▒▒        ░░▒▒▒▒░░░░░░  ░░▒▒░░░░░░░░▒▒░░░░░░                  
@@ -35,7 +35,7 @@ const HomePage: React.FC = () => {
   ░░██▒▒▒▒▒▒▓▓▓▓▓▓░░▒▒▒▒░░▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▓▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒░░░░░░▓▓░░  
 ░░▒▒▒▒▒▒▒▒▒▒▒▒▒▒░░▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒██▒▒░░                    
           `}
-        </span>
+        </div>
       </PageLayout>
     </HomePageStyle>
   );

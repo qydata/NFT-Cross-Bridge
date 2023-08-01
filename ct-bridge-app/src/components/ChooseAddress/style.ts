@@ -33,5 +33,16 @@ const ChooseAddressStyle = styled.div`
       width: 120px;
     }
   }
+  @media all and (orientation: portrait) {
+    /*竖屏*/
+    .arrow-container {
+      justify-content: center;
+      padding: 10px;
+      transform: rotate(90deg);
+    }
+  }
+  @media all and (orientation: landscape) {
+    /*横屏*/
+  }
 `;
 export default ChooseAddressStyle;

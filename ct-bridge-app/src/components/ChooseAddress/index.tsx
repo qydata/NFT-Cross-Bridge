@@ -78,8 +78,8 @@ const ChooseAccount: React.FC<ChooseAccountPropType> = ({ active, next }) => {
       <div className='box'>
         {active ? (
           <>
-            <Row gutter={48}>
-              <Col span={11}>
+            <Row gutter={{ sm: 20, md: 20, xs: 20, lg: 48 }}>
+              <Col lg={11} md={24} xs={24} sm={24}>
                 <Space direction='vertical'>
                   <Title level={5}>从</Title>
                   <Select
@@ -109,10 +109,10 @@ const ChooseAccount: React.FC<ChooseAccountPropType> = ({ active, next }) => {
                   <Web3ConnectButton block={true} />
                 </Space>
               </Col>
-              <Col span={2} className='arrow-container'>
+              <Col lg={2} md={24} sm={24} xs={24} className='arrow-container'>
                 <ArrowRightOutlined />
               </Col>
-              <Col span={11}>
+              <Col lg={11} md={24} sm={24} xs={24}>
                 <Space direction='vertical'>
                   <Title level={5}>到</Title>
                   <Select

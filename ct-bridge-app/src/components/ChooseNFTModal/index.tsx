@@ -195,7 +195,7 @@ const ChooseNFTModal: React.FC<ChooseNFTModalPropType> = ({
       closeIcon={<CloseCircleOutlined />}
     >
       {isManual ? (
-        <Row className='manual-container' gutter={[0, 16]}>
+        <Row className='manual-container' gutter={16}>
           <Col span={7}>
             <p>NFT地址: </p>
           </Col>
@@ -245,9 +245,9 @@ const ChooseNFTModal: React.FC<ChooseNFTModalPropType> = ({
               <Title level={5}>加载可用NFT</Title>
             </div>
           ) : items.length > 0 ? (
-            <Row gutter={[0, 16]} className='image-container'>
+            <Row gutter={16} className='image-container'>
               {items.map((item, index) => (
-                <Col span={8} key={index}>
+                <Col lg={8} md={12} sm={12} xs={12} key={index}>
                   <Card
                     hoverable
                     onClick={() => onSelected(item)}

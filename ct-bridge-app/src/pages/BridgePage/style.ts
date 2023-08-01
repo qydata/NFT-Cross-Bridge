@@ -48,5 +48,11 @@ const BridgePageStyle = styled.div`
   .transfer-token-info {
     margin-top: 16px;
   }
+  @media all and (orientation: portrait) {
+    /*竖屏*/
+  }
+  @media all and (orientation: landscape) {
+    /*横屏*/
+  }
 `;
 export default BridgePageStyle;

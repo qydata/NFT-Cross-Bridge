@@ -26,6 +26,7 @@ const StatusPage: React.FC = () => {
       title: '发送',
       dataIndex: 'sender',
       key: 'sender',
+      fixed: true,
       render: (text: string, record: any) => (
         <>
           <TextAddress address={text} length={4} />
@@ -37,6 +38,7 @@ const StatusPage: React.FC = () => {
       title: '接收',
       dataIndex: 'recipient',
       key: 'recipient',
+      fixed: true,
       render: (text: string, record: any) => (
         <>
           <TextAddress address={text} length={4} />
@@ -48,6 +50,7 @@ const StatusPage: React.FC = () => {
       title: '源NFT地址',
       dataIndex: 'src_token_addr',
       key: 'src_token_addr',
+      fixed: true,
       render: (text: string) => (
         <TextAddress address={text} length={4} copyable />
       )
@@ -56,6 +59,7 @@ const StatusPage: React.FC = () => {
       title: '目标NFT地址',
       dataIndex: 'dst_token_addr',
       key: 'dst_token_addr',
+      fixed: true,
       render: (text: string) => (
         <TextAddress address={text} length={4} copyable />
       )
@@ -64,6 +68,7 @@ const StatusPage: React.FC = () => {
       title: 'NFT ID',
       dataIndex: 'token_id',
       key: 'token_id',
+      fixed: true,
       render: (text: string, record: any) => (
         <>
           <TextAddress address={text} length={4} />
@@ -74,6 +79,7 @@ const StatusPage: React.FC = () => {
       title: '转账在',
       dataIndex: 'created_at',
       key: 'created_at',
+      fixed: true,
       render: (text: string) => (
         <span>{dayjs(text).format('DD/MM/YYYY HH:mm:ss')}</span>
       )
@@ -82,6 +88,7 @@ const StatusPage: React.FC = () => {
       title: '状态',
       dataIndex: 'state',
       key: 'state',
+      fixed: true,
       render: (state: SwapState) => (
         <TransferStatusLabel status={getNFTStatusFromState(state)} />
       )

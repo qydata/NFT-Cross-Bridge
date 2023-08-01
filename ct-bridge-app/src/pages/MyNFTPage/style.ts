@@ -34,6 +34,16 @@ const MyNFTPageStyle = styled.div`
   .ant-card-cover {
     border-radius: 8px;
   }
+  @media all and (orientation: portrait) {
+    /*竖屏*/
+    .ant-card {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+  }
+  @media all and (orientation: landscape) {
+    /*横屏*/
+  }
 `;
 
 export default MyNFTPageStyle;

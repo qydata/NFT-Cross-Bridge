@@ -8,6 +8,16 @@ const HomePageStyle = styled.div`
     white-space: pre;
     color: #0b6a62;
   }
+  @media all and (orientation: portrait) {
+    /*竖屏*/
+    .bridge {
+      transform: scale(0.35, 0.35);
+      transform-origin: left;
+    }
+  }
+  @media all and (orientation: landscape) {
+    /*横屏*/
+  }
   h1 {
     margin-top: 12px !important;
     margin-bottom: 32px;

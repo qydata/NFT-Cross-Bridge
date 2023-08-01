@@ -108,7 +108,7 @@ const ConnectWalletButton = ({ block, style }: any) => {
         closeIcon={<CloseCircleOutlined />}
         onCancel={() => setModalVisible(false)}
       >
-        <Title level={4}>Connect to wallet</Title>
+        <Title level={4}>连接到钱包</Title>
         <ProviderButton icon={'/metamask.svg'} onClick={connect}>
           Metamask
         </ProviderButton>

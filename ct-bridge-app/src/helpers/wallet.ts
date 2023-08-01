@@ -108,6 +108,30 @@ export const getChainDataByChainId = (
 ): ChainData => {
   return chainList.find((item) => item.id === Number(chainId))!;
 };
+export const AddEthereumChainParams: { [key: number]: any } = {
+  27: {
+    chainId: '0x1b',
+    chainName: '草田链 Mainnet',
+    nativeCurrency: {
+      name: '草田链',
+      symbol: 'CT',
+      decimals: 18
+    },
+    rpcUrls: ['https://ctblock.cn/blockChain'],
+    blockExplorerUrls: ['https://ctblock.cn/']
+  },
+  583: {
+    chainId: '0x247',
+    chainName: 'Coo Testnet',
+    nativeCurrency: {
+      name: 'Coo Testnet',
+      symbol: 'Coo',
+      decimals: 18
+    },
+    rpcUrls: ['http://182.43.26.165:7401'],
+    blockExplorerUrls: ['http://182.43.26.165:4000/']
+  }
+};
 
 export const requestChangeNetwork = async (
   chainId: number
@@ -126,7 +150,13 @@ export const requestChangeNetwork = async (
       return true;
     } catch (error: any) {
       if (error.code === 4902) {
+        // 这里添加网络
         message.error(`Please add chain id: ${chainId} chain to your network`);
+        const params = AddEthereumChainParams[chainId];
+        await provider.request({
+          method: 'wallet_addEthereumChain',
+          params: [params]
+        });
       } else {
       }
       console.error('Failed to setup the network in Metamask:', error);
