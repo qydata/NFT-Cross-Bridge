@@ -10,6 +10,7 @@ export enum Chain {
 }
 
 export enum NFTStandard {
+  ERC_20 = 'erc20',
   ERC_721 = 'erc721',
   ERC_1155 = 'erc1155'
 }
@@ -22,6 +23,10 @@ export enum TransferStatus {
 }
 
 export const NFT_STANDARD_OPTIONS = [
+  {
+    label: 'ERC-20',
+    value: NFTStandard.ERC_20
+  },
   {
     label: 'ERC-721',
     value: NFTStandard.ERC_721
@@ -75,7 +80,11 @@ export type CovalentData = {
   contract_ticker_symbol: string;
   contract_name: string;
   contract_address: string;
-  logo_url: string | undefined;
+  token_balance: string;
+  token_id?: string | undefined;
+  external_data?: ExternalData | undefined;
+  token_url?: string | undefined;
+  logo_url?: string | undefined;
   balance: string;
   quote: number | undefined;
   quote_rate: number | undefined;
@@ -85,6 +94,15 @@ export type CovalentData = {
 export type NFTStandardData = {
   label: string;
   value: NFTStandard;
+};
+
+export type ExternalData = {
+  external_url: string;
+  animation_url: string;
+  image: string;
+  image_256: string;
+  name: string;
+  description: string;
 };
 
 export type ChainData = {

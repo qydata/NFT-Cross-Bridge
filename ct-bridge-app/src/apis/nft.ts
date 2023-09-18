@@ -13,6 +13,7 @@ import {
 import setting from 'src/setting';
 
 export type INFTList = Array<{
+  tokenId: number;
   contract_decimals: number;
   decimals: string;
   contract_name: string;
@@ -35,7 +36,9 @@ export type INFTList = Array<{
   quote_24h: any;
   nft_data: any;
   image: string;
+  token_id: string;
   metadata: any;
+  external_data: any;
 }>;
 
 export const getNFTList = async (
@@ -54,7 +57,9 @@ export const getNFTList = async (
   if (response.data.status == 1) {
     const items = [];
     for (const item of response.data.result) {
-      if (item.type == 'ERC-721') {
+      if (item.type == 'ERC-20') {
+        item.supports_erc = ['erc20'];
+      } else if (item.type == 'ERC-721') {
         item.supports_erc = ['erc721'];
       } else if (item.type == 'ERC-1155') {
         item.supports_erc = ['erc1155'];
@@ -74,22 +79,40 @@ export const getNFTList = async (
         item.contract_name = item.name;
         item.contract_ticker_symbol = item.symbol;
         item.token_balance = item.balance;
-        item.nft_data[0].token_id = item.id;
-        item.nft_data[0].token_balance = item.balance;
-        item.nft_data[0].external_data = {};
-        item.nft_data[0].external_data.image = item.metadata?.image;
+        // item.nft_data.token_id = item.id;
+        // item.nft_data.token_balance = item.balance;
+        // item.nft_data.external_data = {};
+        // item.nft_data.external_data.image = item.metadata?.image;
+
+        item.token_id = item.id;
+        item.token_balance = item.balance;
+        item.external_data = {};
+        item.external_data.image = item.metadata?.image;
         item.image = item.metadata?.image;
         item.logo_url = item.metadata?.image;
-        if (item.type == 'ERC-721') {
-          item.supports_erc = ['erc721'];
-        } else if (item.type == 'ERC-1155') {
-          item.supports_erc = ['erc1155'];
-        }
+
+        console.log(item.type);
+        items.push(item);
+      } else if (
+        item.type == 'ERC-20' &&
+        item.supports_erc?.includes(nftStandard)
+      ) {
+        item.contract_address = item.contractAddress;
+        item.contract_decimals = parseInt(item.decimals);
+        item.contract_name = item.name;
+        item.contract_ticker_symbol = item.symbol;
+        item.token_balance = item.balance;
+        item.image = 'no image';
+        item.logo_url = item.metadata?.image;
+        item.tokenId = 0;
+        item.token_id = item.id;
+        item.token_balance = item.balance;
+        item.external_data = {};
+        item.external_data.image = item.metadata?.image;
         console.log(item.type);
         items.push(item);
       }
     }
-    console.log(items);
     return parseNFTData(address, items, nftStandard, chainId);
   }
   return [];
@@ -132,6 +155,16 @@ export const getDataFromTokenUri = async (
   image: string;
   description: string;
 }> => {
+  const pattern = /^((http|https|ftp):\/\/)/;
+
+  if (!pattern.test(tokenUri)) {
+    return {
+      name: '',
+      image: '',
+      description: ''
+    };
+  }
+
   try {
     const HTTP_AXIOS = axios.create();
     const response = await HTTP_AXIOS.get<{
@@ -145,7 +178,7 @@ export const getDataFromTokenUri = async (
     });
     return response.data.data || response.data;
   } catch (error: any) {
-    console.error(error.response);
+    console.error(error);
     return {
       name: '',
       image: '',

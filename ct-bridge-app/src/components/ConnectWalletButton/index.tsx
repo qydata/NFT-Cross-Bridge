@@ -10,7 +10,6 @@ import UAuth, { UserInfo } from '@uauth/js';
 import { setRedirectUrl } from 'src/helpers';
 import { useRecoilState } from 'recoil';
 import { DEFAULT_PROFILE, profileState } from 'src/state/profile';
-import ud from 'src/helpers/ud';
 import { ModalStyle } from './style';
 
 export const injected = new InjectedConnector({
@@ -31,23 +30,6 @@ const ConnectWalletButton = ({ block, style }: any) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const [profile, setProfile] = useRecoilState(profileState);
-
-  useEffect(() => {
-    uauth = ud();
-    uauth
-      .user()
-      .then((user: UserInfo) => {
-        setProfile({
-          walletAddress: user.wallet_address!,
-          email: user.email!,
-          ud: user.sub
-        });
-      })
-      // User is not inside cache, redirect to the login page.
-      .catch((error: any) => {
-        console.error(error);
-      });
-  }, []);
 
   useEffect(() => {
     if (account) {
@@ -72,18 +54,6 @@ const ConnectWalletButton = ({ block, style }: any) => {
       setRedirectUrl();
       if (account) {
         deactivate();
-      } else if (profile.ud) {
-        setLoading(true);
-        uauth
-          .logout({
-            beforeRedirect(url: string) {
-              console.debug('start logout: ', url);
-            }
-          })
-          .catch((error: any) => {
-            setLoading(false);
-            console.error('profile error:', error);
-          });
       } else {
         console.error('cannot logout');
       }

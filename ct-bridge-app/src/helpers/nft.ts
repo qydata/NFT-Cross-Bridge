@@ -17,36 +17,34 @@ export const parseNFTData = async (
   chainId: number
 ): Promise<INFTParsedTokenAccount[]> => {
   const tokens = tokenList.reduce((arr, covalent) => {
-    if (covalent.nft_data) {
-      covalent.nft_data.forEach((data) => {
-        arr.push({
-          walletAddress,
-          contractAddress: covalent.contract_address,
-          amount: data.token_balance,
-          decimals: covalent.contract_decimals,
-          // uiAmount: Number(
-          //   formatUnits(data.token_balance, covalent.contract_decimals)
-          // ),
-          uiAmount: Number(data.token_balance),
-          // uiAmountString: formatUnits(
-          //   data.token_balance,
-          //   covalent.contract_decimals
-          // ),
-          uiAmountString: data.token_balance,
-          symbol: covalent.contract_ticker_symbol,
-          name: covalent.contract_name,
-          logo: covalent.logo_url,
-          tokenId: data.token_id,
-          uri: data.token_url,
-          animation_url: data.external_data?.animation_url,
-          external_url: data.external_data?.external_url,
-          image: data.external_data?.image,
-          image_256: data.external_data?.image_256,
-          nftName: data.external_data?.name,
-          description: data.external_data?.description,
-          standard,
-          chainId
-        });
+    if (covalent) {
+      arr.push({
+        walletAddress,
+        contractAddress: covalent.contract_address,
+        amount: covalent.token_balance,
+        decimals: covalent.contract_decimals,
+        // uiAmount: Number(
+        //   formatUnits(data.token_balance, covalent.contract_decimals)
+        // ),
+        uiAmount: Number(covalent.token_balance),
+        // uiAmountString: formatUnits(
+        //   data.token_balance,
+        //   covalent.contract_decimals
+        // ),
+        uiAmountString: covalent.token_balance,
+        symbol: covalent.contract_ticker_symbol,
+        name: covalent.contract_name,
+        logo: covalent.logo_url,
+        tokenId: covalent.token_id,
+        uri: covalent.token_url,
+        animation_url: covalent.external_data?.animation_url,
+        external_url: covalent.external_data?.external_url,
+        image: covalent.external_data?.image,
+        image_256: covalent.external_data?.image_256,
+        nftName: covalent.external_data?.name,
+        description: covalent.external_data?.description,
+        standard,
+        chainId
       });
     }
     return arr;

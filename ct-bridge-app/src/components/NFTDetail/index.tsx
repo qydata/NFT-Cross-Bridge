@@ -11,6 +11,7 @@ import { getChainDataByChainId, useChainList } from 'src/helpers/wallet';
 import { getNFTStandard } from 'src/helpers/nft';
 import { useEffect, useState } from 'react';
 import { getIsNft1155Registered, getIsNftRegistered } from 'src/apis/nft';
+import contractErc20 from 'src/contract/erc20';
 import contractErc721 from 'src/contract/erc721';
 import contractErc1155 from 'src/contract/erc1155';
 import Alert from 'antd/lib/alert';
@@ -20,6 +21,8 @@ import { EMPTY_NFT_DATA } from 'src/constants/nft';
 import Input from 'antd/lib/input';
 import NFTDetailStyle from './style';
 import { ethers } from 'ethers';
+
+import { useWeb3React } from '@web3-react/core';
 
 enum NftStatus {
   Loading = 'loading',
@@ -44,6 +47,7 @@ const NFTDetail: React.FC<NFTDetailPropType> = ({
   const bridgeAddress = useRecoilValue(bridgeAddressState);
   const [nftStatus, setNftStatus] = useState<NftStatus>(NftStatus.Loading);
   const chainList = useChainList();
+  const { account, activate, deactivate } = useWeb3React();
 
   const {
     name,
@@ -71,17 +75,25 @@ const NFTDetail: React.FC<NFTDetailPropType> = ({
   };
 
   const checkIsApproved = async () => {
-    const tokenIdHex = ethers.BigNumber.from(tokenId!.toString()).toHexString();
-    console.log(tokenIdHex);
-    console.log(standard);
-    console.log(standard === NFTStandard.ERC_721);
-    if (standard === NFTStandard.ERC_721) {
+    if (standard === NFTStandard.ERC_20) {
+      return contractErc20.getApprove(
+        chainData.swapAgent721Address,
+        tokenAddress,
+        account
+      );
+    } else if (standard === NFTStandard.ERC_721) {
+      const tokenIdHex = ethers.BigNumber.from(
+        tokenId!.toString()
+      ).toHexString();
       return contractErc721.getApprove(
         chainData.swapAgent721Address,
         tokenAddress,
         tokenIdHex
       );
     } else if (standard === NFTStandard.ERC_1155) {
+      const tokenIdHex = ethers.BigNumber.from(
+        tokenId!.toString()
+      ).toHexString();
       return contractErc1155.getApprove(
         tokenAddress,
         walletAddress,
@@ -97,7 +109,13 @@ const NFTDetail: React.FC<NFTDetailPropType> = ({
     console.log(1);
     if (isApproved) {
       let isRegister;
-      if (standard === NFTStandard.ERC_721) {
+      if (standard === NFTStandard.ERC_20) {
+        isRegister = await getIsNftRegistered(
+          bridgeAddress.sourceChain!,
+          bridgeAddress.targetChain!,
+          tokenAddress
+        );
+      } else if (standard === NFTStandard.ERC_721) {
         isRegister = await getIsNftRegistered(
           bridgeAddress.sourceChain!,
           bridgeAddress.targetChain!,
@@ -212,9 +230,13 @@ const NFTDetail: React.FC<NFTDetailPropType> = ({
           <p className='detail'>{name}</p>
           <Title level={5}>NFT地址</Title>
           <p className='detail'>{tokenAddress}</p>
-          <Title level={5}>NFT ID</Title>
-          <p className='detail'>{tokenId!.toString()}</p>
-          {standard === NFTStandard.ERC_1155 && (
+          {standard != NFTStandard.ERC_20 && (
+            <>
+              <Title level={5}>NFT ID</Title>
+              <p className='detail'>{tokenId?.toString()}</p>
+            </>
+          )}
+          {standard != NFTStandard.ERC_721 && (
             <>
               <Title level={5}>NFT数量</Title>
               <Input
