@@ -46,10 +46,13 @@
     "chain2:erc1155-backward-swap": "DST_CHAIN_ID=1000 hardhat --network chain2 deploy --reset --tags ERC1155BackwardSwap",
     "ct:deploy-mock-factory": "hardhat --network ctChain deploy --no-compile --reset --tags MockFactory",
     "ct:erc20-deploy-mock-token": "hardhat --network ctChain deploy --no-compile --reset --tags ERC20MockToken",
+  
     "ct:erc20-deploy-agent": "hardhat --network ctChain deploy --no-compile --reset --tags ERC20SwapAgent",
     "ct:erc721-deploy-agent": "hardhat --network ctChain deploy --no-compile --reset --tags ERC721SwapAgent",
     "ct:erc1155-deploy-agent": "hardhat --network ctChain deploy --no-compile --reset --tags ERC1155SwapAgent",
+   
     "cootest:deploy-mock-factory": "hardhat --network cooChain deploy --no-compile --reset --tags MockFactory",
+    
     "cootest:erc20-deploy-agent": "hardhat --network cooChain deploy --no-compile --reset --tags ERC20SwapAgent",
     "cootest:erc721-deploy-agent": "hardhat --network cooChain deploy --no-compile --reset --tags ERC721SwapAgent",
     "cootest:erc1155-deploy-agent": "hardhat --network cooChain deploy --no-compile --reset --tags ERC1155SwapAgent"

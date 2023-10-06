@@ -1,0 +1,34 @@
+{
+  "logs": {
+    "level": "DEBUG",
+    "filename": "./logs/eth-swap-ap.log",
+    "maxFileSizeInMB": 100,
+    "maxBackupsOfLogFiles": 100,
+    "maxAgeToRetainLogFilesInDays": 28,
+    "useConsoleLogger": true,
+    "useFileLogger": true,
+    "compress": false
+  },
+  "cache_ttls": {
+    "swaps": 20,
+    "swap_pairs": 10000,
+    "info": 100000
+  },
+  "db": {
+    "log_level": "WARN",
+    "dsn": "user_bridge:ChckAlsyTHgacp4x@tcp(172.16.169.161:3306)/nft_bridge?charset=utf8mb4&parseTime=True&loc=Local"
+  },
+  "swap_config": {
+    "ct_chain_id": 27,
+    "ct_erc_721_swap_agent": "0x62D713E938315990892dB5B75066a04cF3284C1b",
+    "ct_erc_1155_swap_agent": "0x20d39d6d46f9A1688915e1aeC64fD4F523C52c40",
+    "coo_chain_id": 583,
+    "coo_erc_721_swap_agent": "0xBCec2BAa7b9F72679Be524592EDb9Bf0f4632a18",
+    "coo_erc_1155_swap_agent": "0xC860896E3F94EF58fe1aA30adD387C6123973878"
+  },
+  "cors": {
+    "allowed_origins": [
+      "*"
+    ]
+  }
+}
