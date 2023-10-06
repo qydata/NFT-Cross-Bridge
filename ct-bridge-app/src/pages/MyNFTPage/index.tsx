@@ -20,6 +20,7 @@ const MyNFTPage: React.FC = () => {
   const [nftStandard, setNftStandard] = useState(NFTStandard.ERC_721);
   const [items, setItems] = useState<INFTParsedTokenAccount[]>([]);
 
+  // 暂时只显示ERC721
   const fetchNFT = async () => {
     if (account && chainId) {
       setLoading(true);

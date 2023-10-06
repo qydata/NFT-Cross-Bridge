@@ -10,7 +10,11 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { getChainDataByChainId, useChainList } from 'src/helpers/wallet';
 import { getNFTStandard } from 'src/helpers/nft';
 import { useEffect, useState } from 'react';
-import { getIsNft1155Registered, getIsNftRegistered } from 'src/apis/nft';
+import {
+  getIsNft1155Registered,
+  getIsNft20Registered,
+  getIsNft721Registered
+} from 'src/apis/nft';
 import contractErc20 from 'src/contract/erc20';
 import contractErc721 from 'src/contract/erc721';
 import contractErc1155 from 'src/contract/erc1155';
@@ -77,7 +81,7 @@ const NFTDetail: React.FC<NFTDetailPropType> = ({
   const checkIsApproved = async () => {
     if (standard === NFTStandard.ERC_20) {
       return contractErc20.getApprove(
-        chainData.swapAgent721Address,
+        chainData.swapAgent20Address,
         tokenAddress,
         account
       );
@@ -110,13 +114,13 @@ const NFTDetail: React.FC<NFTDetailPropType> = ({
     if (isApproved) {
       let isRegister;
       if (standard === NFTStandard.ERC_20) {
-        isRegister = await getIsNftRegistered(
+        isRegister = await getIsNft20Registered(
           bridgeAddress.sourceChain!,
           bridgeAddress.targetChain!,
           tokenAddress
         );
       } else if (standard === NFTStandard.ERC_721) {
-        isRegister = await getIsNftRegistered(
+        isRegister = await getIsNft721Registered(
           bridgeAddress.sourceChain!,
           bridgeAddress.targetChain!,
           tokenAddress
@@ -142,14 +146,25 @@ const NFTDetail: React.FC<NFTDetailPropType> = ({
   const approve = async () => {
     setNftStatus(NftStatus.Loading);
     let isApproved;
-    const tokenIdHex = ethers.BigNumber.from(tokenId!.toString()).toHexString();
-    if (standard === NFTStandard.ERC_721) {
+
+    if (standard === NFTStandard.ERC_20) {
+      isApproved = await contractErc20.approve(
+        chainData.swapAgent20Address,
+        tokenAddress
+      );
+    } else if (standard === NFTStandard.ERC_721) {
+      const tokenIdHex = ethers.BigNumber.from(
+        tokenId!.toString()
+      ).toHexString();
       isApproved = await contractErc721.approve(
         chainData.swapAgent721Address,
         tokenAddress,
         tokenIdHex
       );
     } else if (standard === NFTStandard.ERC_1155) {
+      const tokenIdHex = ethers.BigNumber.from(
+        tokenId!.toString()
+      ).toHexString();
       isApproved = await contractErc1155.approve(
         chainData.swapAgent1155Address,
         tokenAddress
@@ -166,7 +181,14 @@ const NFTDetail: React.FC<NFTDetailPropType> = ({
   const register = async () => {
     setNftStatus(NftStatus.Loading);
     let isRegistered;
-    if (standard === NFTStandard.ERC_721) {
+    if (standard === NFTStandard.ERC_20) {
+      isRegistered = await contractErc20.registerToken(
+        chainData.swapAgent20Address,
+        tokenAddress,
+        bridgeAddress.targetChain!,
+        chainData.registerFee
+      );
+    } else if (standard === NFTStandard.ERC_721) {
       isRegistered = await contractErc721.registerToken(
         chainData.swapAgent721Address,
         tokenAddress,

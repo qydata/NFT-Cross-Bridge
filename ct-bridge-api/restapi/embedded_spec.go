@@ -393,6 +393,184 @@ func init() {
         }
       }
     },
+ 	"/v1/erc-20-swap-pairs": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "erc_1155_swap_pairs"
+        ],
+        "summary": "Gets a list of available ERC1155 swap pairs.",
+        "operationId": "getErc1155SwapPairs",
+        "parameters": [
+          {
+            "maximum": 10000,
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "description": "offset",
+            "name": "offset",
+            "in": "query"
+          },
+          {
+            "maximum": 10000,
+            "type": "integer",
+            "format": "int32",
+            "default": 100,
+            "description": "limit",
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "enum": [
+              "registration_ongoing",
+              "registration_confirmed",
+              "creation_tx_dry_run_failed",
+              "creation_tx_created",
+              "creation_tx_sent",
+              "creation_tx_confirmed",
+              "creation_tx_failed",
+              "creation_tx_missing"
+            ],
+            "type": "string",
+            "description": "state",
+            "name": "state",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "source chain id",
+            "name": "src_chain_id",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "destination chain id",
+            "name": "dst_chain_id",
+            "in": "query"
+          },
+          {
+            "pattern": "^(0x)[0-9A-Fa-f]{40}$",
+            "type": "string",
+            "description": "source token address",
+            "name": "src_token_addr",
+            "in": "query"
+          },
+          {
+            "pattern": "^(0x)[0-9A-Fa-f]{40}$",
+            "type": "string",
+            "description": "destination token address",
+            "name": "dst_token_addr",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Erc1155SwapPairs"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "internal server error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/v1/erc-20-swaps": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "erc_20_swaps"
+        ],
+        "summary": "Gets list of ERC1155 swap.",
+        "operationId": "getErc1155Swaps",
+        "parameters": [
+          {
+            "maximum": 1000,
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "description": "offset",
+            "name": "offset",
+            "in": "query"
+          },
+          {
+            "maximum": 1000,
+            "type": "integer",
+            "format": "int32",
+            "default": 100,
+            "description": "limit",
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "pattern": "^(0x)[0-9A-Fa-f]{40}$",
+            "type": "string",
+            "description": "address",
+            "name": "sender",
+            "in": "query",
+            "required": true
+          },
+          {
+            "enum": [
+              "request_ongoing",
+              "request_rejected",
+              "request_confirmed",
+              "fill_tx_dry_run_failed",
+              "fill_tx_created",
+              "fill_tx_sent",
+              "fill_tx_confirmed",
+              "fill_tx_failed",
+              "fill_tx_missing"
+            ],
+            "type": "string",
+            "description": "state",
+            "name": "state",
+            "in": "query"
+          },
+          {
+            "pattern": "^(0x)[0-9A-Fa-f]{64}$",
+            "type": "string",
+            "description": "request_tx_hash",
+            "name": "request_tx_hash",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Erc1155Swaps"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "internal server error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
     "/v1/info": {
       "get": {
         "produces": [
@@ -1244,6 +1422,188 @@ func init() {
         }
       }
     },
+    "/v1/erc-20-swap-pairs": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "erc_1155_swap_pairs"
+        ],
+        "summary": "Gets a list of available ERC1155 swap pairs.",
+        "operationId": "getErc1155SwapPairs",
+        "parameters": [
+          {
+            "maximum": 10000,
+            "minimum": 0,
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "description": "offset",
+            "name": "offset",
+            "in": "query"
+          },
+          {
+            "maximum": 10000,
+            "minimum": 0,
+            "type": "integer",
+            "format": "int32",
+            "default": 100,
+            "description": "limit",
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "enum": [
+              "registration_ongoing",
+              "registration_confirmed",
+              "creation_tx_dry_run_failed",
+              "creation_tx_created",
+              "creation_tx_sent",
+              "creation_tx_confirmed",
+              "creation_tx_failed",
+              "creation_tx_missing"
+            ],
+            "type": "string",
+            "description": "state",
+            "name": "state",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "source chain id",
+            "name": "src_chain_id",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "destination chain id",
+            "name": "dst_chain_id",
+            "in": "query"
+          },
+          {
+            "pattern": "^(0x)[0-9A-Fa-f]{40}$",
+            "type": "string",
+            "description": "source token address",
+            "name": "src_token_addr",
+            "in": "query"
+          },
+          {
+            "pattern": "^(0x)[0-9A-Fa-f]{40}$",
+            "type": "string",
+            "description": "destination token address",
+            "name": "dst_token_addr",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Erc1155SwapPairs"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "internal server error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/v1/erc-20-swaps": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "erc_20_swaps"
+        ],
+        "summary": "Gets list of ERC20 swap.",
+        "operationId": "getErc20Swaps",
+        "parameters": [
+          {
+            "maximum": 1000,
+            "minimum": 0,
+            "type": "integer",
+            "format": "int32",
+            "default": 0,
+            "description": "offset",
+            "name": "offset",
+            "in": "query"
+          },
+          {
+            "maximum": 1000,
+            "minimum": 0,
+            "type": "integer",
+            "format": "int32",
+            "default": 100,
+            "description": "limit",
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "pattern": "^(0x)[0-9A-Fa-f]{40}$",
+            "type": "string",
+            "description": "address",
+            "name": "sender",
+            "in": "query",
+            "required": true
+          },
+          {
+            "enum": [
+              "request_ongoing",
+              "request_rejected",
+              "request_confirmed",
+              "fill_tx_dry_run_failed",
+              "fill_tx_created",
+              "fill_tx_sent",
+              "fill_tx_confirmed",
+              "fill_tx_failed",
+              "fill_tx_missing"
+            ],
+            "type": "string",
+            "description": "state",
+            "name": "state",
+            "in": "query"
+          },
+          {
+            "pattern": "^(0x)[0-9A-Fa-f]{64}$",
+            "type": "string",
+            "description": "request_tx_hash",
+            "name": "request_tx_hash",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Erc20Swaps"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "internal server error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
     "/v1/info": {
       "get": {
         "produces": [
@@ -1617,39 +1977,19 @@ func init() {
     "ServiceInfo": {
       "type": "object",
       "properties": {
-        "bsc_chain_id": {
-          "type": "integer",
-          "x-omitempty": false
-        },
-        "bsc_erc_1155_swap_agent": {
-          "type": "string",
-          "x-omitempty": false
-        },
-        "bsc_erc_721_swap_agent": {
-          "type": "string",
-          "x-omitempty": false
-        },
-        "eth_chain_id": {
-          "type": "integer",
-          "x-omitempty": false
-        },
-        "eth_erc_1155_swap_agent": {
-          "type": "string",
-          "x-omitempty": false
-        },
-        "eth_erc_721_swap_agent": {
-          "type": "string",
-          "x-omitempty": false
-        },
    		"ct_chain_id": {
           "type": "integer",
           "x-omitempty": false
         },
-        "bct_erc_1155_swap_agent": {
+        "ct_erc_1155_swap_agent": {
           "type": "string",
           "x-omitempty": false
         },
         "ct_erc_721_swap_agent": {
+          "type": "string",
+          "x-omitempty": false
+        },
+        "ct_erc_20_swap_agent": {
           "type": "string",
           "x-omitempty": false
         },
@@ -1665,27 +2005,7 @@ func init() {
           "type": "string",
           "x-omitempty": false
         },
-        "fantom_chain_id": {
-          "type": "integer",
-          "x-omitempty": false
-        },
-        "fantom_erc_1155_swap_agent": {
-          "type": "string",
-          "x-omitempty": false
-        },
-        "fantom_erc_721_swap_agent": {
-          "type": "string",
-          "x-omitempty": false
-        },
-        "polygon_chain_id": {
-          "type": "integer",
-          "x-omitempty": false
-        },
-        "polygon_erc_1155_swap_agent": {
-          "type": "string",
-          "x-omitempty": false
-        },
-        "polygon_erc_721_swap_agent": {
+        "coo_erc_20_swap_agent": {
           "type": "string",
           "x-omitempty": false
         }
@@ -1693,6 +2013,14 @@ func init() {
     }
   },
   "tags": [
+    {
+      "description": "Erc20Swap Pair list",
+      "name": "erc_20_swap_pairs"
+    },
+    {
+      "description": "Erc20Swap list",
+      "name": "erc_20_swaps"
+    },
     {
       "description": "Erc721Swap Pair list",
       "name": "erc_721_swap_pairs"

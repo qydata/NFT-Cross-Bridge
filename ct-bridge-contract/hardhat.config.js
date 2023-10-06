@@ -18,8 +18,8 @@ module.exports = {
       },
     },
   },
-  defaultNetwork: "cooChain",
-  // defaultNetwork: "ctChain",
+  // defaultNetwork: "cooChain",
+  defaultNetwork: "ctChain",
   networks: {
     
     ctChain: {

@@ -44,7 +44,7 @@
     }
   ],
   "log_config": {
-    "level": "INFO",
+    "level": "ALL",
     "filename": "build/test.log",
     "max_file_size_in_mb": 100,
     "max_backups_of_log_files": 1,

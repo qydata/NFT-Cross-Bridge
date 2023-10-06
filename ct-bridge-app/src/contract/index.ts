@@ -6,6 +6,11 @@ export const getSigner = () => {
   return signer;
 };
 
+export const getProvider = () => {
+  const provider = new ethers.providers.Web3Provider(window.ethereum!);
+  return provider;
+};
+
 export const getContract = (contractAddress: string, abi: any) => {
   const signer = getSigner();
   const contract = new ethers.Contract(contractAddress, abi, signer);

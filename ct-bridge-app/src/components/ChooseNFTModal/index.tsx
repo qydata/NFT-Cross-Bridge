@@ -25,6 +25,7 @@ import { nftState } from 'src/state/bridge';
 import contract721 from 'src/contract/erc721';
 import { message } from 'antd';
 import contractErc1155 from 'src/contract/erc1155';
+import contractErc20 from 'src/contract/erc20';
 import { EMPTY_NFT_DATA } from 'src/constants/nft';
 
 type ChooseNFTModalPropType = {
@@ -109,6 +110,28 @@ const ChooseNFTModal: React.FC<ChooseNFTModalPropType> = ({
     }
   };
 
+  const confirmToken20 = async () => {
+    if (contractAddress) {
+      const name = await contractErc20.name(contractAddress);
+      if (!name) return;
+      const nftData: INFTParsedTokenAccount = {
+        ...EMPTY_NFT_DATA,
+        tokenId: '0',
+        uri: '',
+        image: 'no image',
+        nftName: name,
+        description: '',
+        walletAddress: account!,
+        contractAddress: contractAddress,
+        name: name,
+        standard: NFTStandard.ERC_20,
+        chainId: chainId!
+      };
+      setNft(nftData);
+      onClose();
+    }
+  };
+
   const confirmToken1155 = async () => {
     if (tokenId && contractAddress) {
       const tokenUri = await contractErc1155.getTokenUri(
@@ -142,7 +165,9 @@ const ChooseNFTModal: React.FC<ChooseNFTModalPropType> = ({
 
   const confirmToken = async () => {
     setConfirmLoading(true);
-    if (nftStandard === NFTStandard.ERC_721) {
+    if (nftStandard === NFTStandard.ERC_20) {
+      await confirmToken20();
+    } else if (nftStandard === NFTStandard.ERC_721) {
       await confirmToken721();
     } else if (nftStandard === NFTStandard.ERC_1155) {
       await confirmToken1155();

@@ -12,6 +12,20 @@ import (
 func (r *Recorder) Record(tx *gorm.DB, b *block.Log) error {
 	var g errgroup.Group
 	g.Go(func() error {
+		if err := r.recordERC20RegisterTx(tx, b); err != nil {
+			return errors.Wrap(err, "[Recorder.Record]: failed to record ERC20 register tx")
+		}
+		if err := r.recordERC20SwapTx(tx, b); err != nil {
+			return errors.Wrap(err, "[Recorder.Record]: failed to record ERC20 swap tx")
+		}
+		if err := r.recordERC20BackwardSwapTx(tx, b); err != nil {
+			return errors.Wrap(err, "[Recorder.Record]: failed to record ERC20 backward swap tx")
+		}
+
+		return nil
+	})
+
+	g.Go(func() error {
 		if err := r.recordERC721RegisterTx(tx, b); err != nil {
 			return errors.Wrap(err, "[Recorder.Record]: failed to record ERC721 register tx")
 		}

@@ -13,6 +13,12 @@ const (
 )
 
 func (e *Engine) Start() {
+	// ERC20
+	go e.run(e.manageERC20OngoingRegistration, watchRegisterEventDelay)
+	go e.run(e.manageERC20ConfirmedRegitration, watchRegisterEventDelay)
+	go e.run(e.manageERC20TxCreatedRegistration, watchRegisterEventDelay)
+	go e.run(e.manageERC20TxSentRegistration, watchRegisterEventDelay)
+
 	// ERC721
 	go e.run(e.manageERC721OngoingRegistration, watchRegisterEventDelay)
 	go e.run(e.manageERC721ConfirmedRegitration, watchRegisterEventDelay)

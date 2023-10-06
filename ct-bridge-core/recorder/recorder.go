@@ -1,6 +1,8 @@
 package recorder
 
 import (
+	erc20agent "github.com/qydata/ct-evm-compatible-bridge-core/agent/erc20"
+	erc20token "github.com/qydata/ct-evm-compatible-bridge-core/token/erc20"
 	"math/big"
 
 	"gorm.io/gorm"
@@ -31,6 +33,8 @@ type Config struct {
 type Dependencies struct {
 	Client           map[string]client.ETHClient
 	DB               *gorm.DB
+	ERC20SwapAgent   map[string]erc20agent.SwapAgent
+	ERC20Token       map[string]erc20token.IToken
 	ERC721SwapAgent  map[string]erc721agent.SwapAgent
 	ERC721Token      map[string]erc721token.IToken
 	ERC1155SwapAgent map[string]erc1155agent.SwapAgent

@@ -46,7 +46,7 @@ export const getNFTList = async (
   address: string,
   nftStandard: NFTStandard
 ): Promise<INFTParsedTokenAccount[]> => {
-  const url = `${setting.API_URL}/v1/${chainId}/${address}`;
+  const url = `${setting.REACT_APP_TOKEN_FETCH_URL}/v1/${chainId}/${address}`;
   const response = await axios.get<{
     result: INFTList;
     status: number;
@@ -113,12 +113,27 @@ export const getNFTList = async (
         items.push(item);
       }
     }
+    console.log(items);
     return parseNFTData(address, items, nftStandard, chainId);
   }
   return [];
 };
 
-export const getIsNftRegistered = async (
+export const getIsNft20Registered = async (
+  chainId: number,
+  targetChainId: number,
+  tokenAddress: string
+): Promise<boolean> => {
+  const forwardUrl = `${setting.API_URL}/v1/erc-20-swap-pairs?available=true&src_chain_id=${chainId}&dst_chain_id=${targetChainId}&src_token_addr=${tokenAddress}&limit=1`;
+  const backwardUrl = `${setting.API_URL}/v1/erc-20-swap-pairs?available=true&dst_chain_id=${chainId}&src_chain_id=${targetChainId}&dst_token_addr=${tokenAddress}&limit=1`;
+  const forwardResponse = await axios.get<{ pairs: [] }>(forwardUrl);
+  const backwardResponse = await axios.get<{ pairs: [] }>(backwardUrl);
+  return (
+    forwardResponse.data.pairs.length > 0 ||
+    backwardResponse.data.pairs.length > 0
+  );
+};
+export const getIsNft721Registered = async (
   chainId: number,
   targetChainId: number,
   tokenAddress: string
@@ -235,6 +250,41 @@ export const get1155TransferStatus = async (
   try {
     const response = await axios.get<{ erc_1155_swaps: Array<any> }>(url);
     const transactionData = response.data.erc_1155_swaps[0];
+    if (!transactionData) {
+      return data;
+    }
+
+    const { state, dst_token_addr, token_id } = transactionData;
+
+    if (state === SwapState.FillTxConfirmed) {
+      data.status = TransferStatus.Done;
+      data.dstTokenAddress = dst_token_addr;
+      data.dstTokenId = token_id;
+    } else if (ERROR_STATE.includes(state)) {
+      data.status = TransferStatus.Error;
+    } else {
+      data.status = TransferStatus.InProgress;
+    }
+  } catch (error) {
+    console.error(error);
+    data.status = TransferStatus.Error;
+  }
+  return data;
+};
+
+export const get20TransferData = async (
+  sender: string,
+  txHash: string
+): Promise<TransferData> => {
+  const url = `${setting.API_URL}/v1/erc-20-swaps?limit=1&sender=${sender}&request_tx_hash=${txHash}`;
+  const data = {
+    status: TransferStatus.InProgress,
+    dstTokenAddress: '',
+    dstTokenId: ''
+  };
+  try {
+    const response = await axios.get<{ erc_20_swaps: Array<any> }>(url);
+    const transactionData = response.data.erc_20_swaps[0];
     if (!transactionData) {
       return data;
     }

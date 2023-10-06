@@ -8,6 +8,7 @@ const requireEnv = (name: string): string => {
 
 export default {
   API_URL: requireEnv('REACT_APP_API_URL'),
+  REACT_APP_TOKEN_FETCH_URL: requireEnv('REACT_APP_TOKEN_FETCH_URL'),
   COVALENT_API_KEY: requireEnv('REACT_APP_COVALENT_API_KEY'),
   UNSTOPPABLEDOMAIN_CLIENT_ID: requireEnv(
     'REACT_APP_UNSTOPPABLEDOMAIN_CLIENT_ID'

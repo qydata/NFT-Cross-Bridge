@@ -115,6 +115,7 @@ type ChainConfig struct {
 	PrivateKey             string `json:"private_key"`
 	Provider               string `json:"provider"`
 	ConfirmNum             int64  `json:"confirm_num"`
+	ERC20SwapAgentAddr     string `json:"erc_20_swap_agent_addr"`
 	ERC721SwapAgentAddr    string `json:"erc_721_swap_agent_addr"`
 	ERC1155SwapAgentAddr   string `json:"erc_1155_swap_agent_addr"`
 	ExplorerUrl            string `json:"explorer_url"`
@@ -132,8 +133,8 @@ func (cfg ChainConfig) Validate() {
 	if cfg.Provider == "" {
 		panic("provider should not be empty")
 	}
-	if cfg.ConfirmNum <= 0 {  // TODO Coo test net skip
-	//if cfg.ConfirmNum < 0 {  // TODO Coo test net skip
+	if cfg.ConfirmNum <= 0 { // TODO Coo test net skip
+		//if cfg.ConfirmNum < 0 {  // TODO Coo test net skip
 		panic("confirm_num should be larger than 0")
 	}
 	if !ethcom.IsHexAddress(cfg.ERC721SwapAgentAddr) {

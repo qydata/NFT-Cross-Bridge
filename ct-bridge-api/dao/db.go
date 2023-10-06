@@ -2,6 +2,7 @@ package dao
 
 import (
 	"github.com/pkg/errors"
+	erc20dao "github.com/qydata/ct-evm-compatible-bridge-api/dao/erc20"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -12,6 +13,8 @@ import (
 )
 
 func NewDaoServices(dsn, logLevel string) (
+	erc20dao.SwapPairDaoInterface,
+	erc20dao.SwapDaoInterface,
 	erc721dao.SwapPairDaoInterface,
 	erc721dao.SwapDaoInterface,
 	erc1155dao.SwapPairDaoInterface,
@@ -25,10 +28,10 @@ func NewDaoServices(dsn, logLevel string) (
 		Logger: logger.Default.LogMode(dbLogLevel(logLevel)),
 	})
 	if err != nil {
-		return nil, nil, nil, nil, errors.Wrap(err, "[NewDaoServices]: failed to open db")
+		return nil, nil, nil, nil, nil, nil, errors.Wrap(err, "[NewDaoServices]: failed to open db")
 	}
 
-	return erc721dao.NewSwapPairDao(db), erc721dao.NewSwapDao(db), erc1155dao.NewSwapPairDao(db), erc1155dao.NewSwapDao(db), nil
+	return erc20dao.NewSwapPairDao(db), erc20dao.NewSwapDao(db), erc721dao.NewSwapPairDao(db), erc721dao.NewSwapDao(db), erc1155dao.NewSwapPairDao(db), erc1155dao.NewSwapDao(db), nil
 }
 
 func dbLogLevel(level string) logger.LogLevel {

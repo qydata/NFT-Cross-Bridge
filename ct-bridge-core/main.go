@@ -17,6 +17,7 @@ import (
 
 	contractabi "github.com/qydata/ct-evm-compatible-bridge-core/abi"
 	erc1155agent "github.com/qydata/ct-evm-compatible-bridge-core/agent/erc1155"
+	erc20agent "github.com/qydata/ct-evm-compatible-bridge-core/agent/erc20"
 	erc721agent "github.com/qydata/ct-evm-compatible-bridge-core/agent/erc721"
 	"github.com/qydata/ct-evm-compatible-bridge-core/client"
 	"github.com/qydata/ct-evm-compatible-bridge-core/model"
@@ -25,6 +26,7 @@ import (
 	sengine "github.com/qydata/ct-evm-compatible-bridge-core/swap-engine"
 	spengine "github.com/qydata/ct-evm-compatible-bridge-core/swap-pair-engine"
 	erc1155token "github.com/qydata/ct-evm-compatible-bridge-core/token/erc1155"
+	erc20token "github.com/qydata/ct-evm-compatible-bridge-core/token/erc20"
 	erc721token "github.com/qydata/ct-evm-compatible-bridge-core/token/erc721"
 	"github.com/qydata/ct-evm-compatible-bridge-core/util"
 )
@@ -119,6 +121,9 @@ func main() {
 
 	model.InitTables(db)
 
+	erc20SwapAgents := make(map[string]erc20agent.SwapAgent)
+	erc20SwapAgentAddresses := make(map[string]common.Address)
+	erc20Tokens := make(map[string]erc20token.IToken)
 	erc721SwapAgents := make(map[string]erc721agent.SwapAgent)
 	erc721SwapAgentAddresses := make(map[string]common.Address)
 	erc721Tokens := make(map[string]erc721token.IToken)
@@ -130,6 +135,12 @@ func main() {
 		ec, err := ethclient.Dial(c.Provider)
 		if err != nil {
 			panic(errors.Wrap(err, "[main]: new eth client error"))
+		}
+
+		erc20SwapAgentAddr := common.HexToAddress(c.ERC20SwapAgentAddr)
+		erc20SwapAgent, err := contractabi.NewERC20SwapAgent(erc20SwapAgentAddr, ec)
+		if err != nil {
+			panic(errors.Wrap(err, "[main]: failed to create ERC20 swap agent"))
 		}
 
 		erc721SwapAgentAddr := common.HexToAddress(c.ERC721SwapAgentAddr)
@@ -145,6 +156,10 @@ func main() {
 		}
 
 		clients[c.ID] = client.NewClient(ec)
+		erc20Tokens[c.ID] = erc20token.NewToken(ec)
+		erc20SwapAgents[c.ID] = erc20SwapAgent
+		erc20SwapAgentAddresses[c.ID] = erc20SwapAgentAddr
+
 		erc721Tokens[c.ID] = erc721token.NewToken(ec)
 		erc721SwapAgents[c.ID] = erc721SwapAgent
 		erc721SwapAgentAddresses[c.ID] = erc721SwapAgentAddr
@@ -168,6 +183,8 @@ func main() {
 		}, &recorder.Dependencies{
 			Client:           clients,
 			DB:               db.Session(&gorm.Session{}),
+			ERC20SwapAgent:   erc20SwapAgents,
+			ERC20Token:       erc20Tokens,
 			ERC721SwapAgent:  erc721SwapAgents,
 			ERC721Token:      erc721Tokens,
 			ERC1155SwapAgent: erc1155SwapAgents,
@@ -197,12 +214,14 @@ func main() {
 			ExplorerURL:               c.ExplorerUrl,
 			PrivateKey:                c.PrivateKey,
 			MaxTrackRetry:             c.MaxTrackRetry,
+			ERC20SwapAgentAddresses:   erc20SwapAgentAddresses,
 			ERC721SwapAgentAddresses:  erc721SwapAgentAddresses,
 			ERC1155SwapAgentAddresses: erc1155SwapAgentAddresses,
 		}, &spengine.Dependencies{
 			Client:           clients,
 			DB:               db.Session(&gorm.Session{}),
 			Recorder:         recorders,
+			ERC20SwapAgent:   erc20SwapAgents,
 			ERC721SwapAgent:  erc721SwapAgents,
 			ERC1155SwapAgent: erc1155SwapAgents,
 		})
@@ -214,12 +233,15 @@ func main() {
 			ExplorerURL:               c.ExplorerUrl,
 			PrivateKey:                c.PrivateKey,
 			MaxTrackRetry:             c.MaxTrackRetry,
+			ERC20SwapAgentAddresses:   erc20SwapAgentAddresses,
 			ERC721SwapAgentAddresses:  erc721SwapAgentAddresses,
 			ERC1155SwapAgentAddresses: erc1155SwapAgentAddresses,
 		}, &sengine.Dependencies{
 			Client:           clients,
 			DB:               db.Session(&gorm.Session{}),
 			Recorder:         recorders,
+			ERC20SwapAgent:   erc20SwapAgents,
+			ERC20Token:       erc20Tokens,
 			ERC721SwapAgent:  erc721SwapAgents,
 			ERC721Token:      erc721Tokens,
 			ERC1155SwapAgent: erc1155SwapAgents,

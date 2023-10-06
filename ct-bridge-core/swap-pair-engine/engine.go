@@ -1,6 +1,7 @@
 package engine
 
 import (
+	erc20agent "github.com/qydata/ct-evm-compatible-bridge-core/agent/erc20"
 	"math/big"
 
 	"gorm.io/gorm"
@@ -21,6 +22,7 @@ type Config struct {
 	ChainID                   *big.Int
 	ConfirmNum                int64
 	MaxTrackRetry             int64
+	ERC20SwapAgentAddresses   map[string]common.Address
 	ERC721SwapAgentAddresses  map[string]common.Address
 	ERC1155SwapAgentAddresses map[string]common.Address
 }
@@ -29,6 +31,7 @@ type Dependencies struct {
 	Client           map[string]client.ETHClient
 	DB               *gorm.DB
 	Recorder         map[string]recorder.IRecorder
+	ERC20SwapAgent   map[string]erc20agent.SwapAgent
 	ERC721SwapAgent  map[string]erc721agent.SwapAgent
 	ERC1155SwapAgent map[string]erc1155agent.SwapAgent
 }

@@ -21,6 +21,7 @@
     "craco-less": "^1.20.0",
     "dayjs": "^1.10.7",
     "ethers": "^5.5.1",
+    "evm": "^0.2.0",
     "husky": "^7.0.2",
     "lint-staged": "^11.2.3",
     "prettier": "^2.4.1",

@@ -21,6 +21,8 @@ import (
 	"github.com/qydata/ct-evm-compatible-bridge-api/restapi/operations/erc_1155_swaps"
 	"github.com/qydata/ct-evm-compatible-bridge-api/restapi/operations/erc_721_swap_pairs"
 	"github.com/qydata/ct-evm-compatible-bridge-api/restapi/operations/erc_721_swaps"
+	"github.com/qydata/ct-evm-compatible-bridge-api/restapi/operations/erc_20_swap_pairs"
+	"github.com/qydata/ct-evm-compatible-bridge-api/restapi/operations/erc_20_swaps"
 	"github.com/qydata/ct-evm-compatible-bridge-api/restapi/operations/svc_info"
 	"github.com/qydata/ct-evm-compatible-bridge-api/services"
 	"github.com/qydata/ct-evm-compatible-bridge-api/utils/cache"
@@ -39,6 +41,8 @@ var (
 	cacheService services.Service
 
 	infoCache,
+	erc20SwapPairCache,
+	erc20SwapCache,
 	erc721SwapPairCache,
 	erc721SwapCache,
 	erc1155SwapPairCache,
@@ -80,6 +84,18 @@ func configureAPI(api *operations.BscEvmCompatibleBridgeAPIAPI) http.Handler {
 	api.JSONConsumer = runtime.JSONConsumer()
 
 	api.JSONProducer = runtime.JSONProducer()
+
+	api.Erc20SwapPairsGetErc20SwapPairsHandler = erc_20_swap_pairs.GetErc20SwapPairsHandlerFunc(func(params erc_20_swap_pairs.GetErc20SwapPairsParams) middleware.Responder {
+		return erc20SwapCache.Serve(params.HTTPRequest, func() middleware.Responder {
+			return handler.NewGetERC20SwapPairsHandler(env, api).Serve(params)
+		}, api.JSONProducer)
+	})
+
+	api.Erc20SwapsGetErc20SwapsHandler = erc_20_swaps.GetErc20SwapsHandlerFunc(func(params erc_20_swaps.GetErc20SwapsParams) middleware.Responder {
+		return erc20SwapPairCache.Serve(params.HTTPRequest, func() middleware.Responder {
+			return handler.NewGetERC20SwapsHandler(env, api).Serve(params)
+		}, api.JSONProducer)
+	})
 
 	api.Erc721SwapPairsGetErc721SwapPairsHandler = erc_721_swap_pairs.GetErc721SwapPairsHandlerFunc(func(params erc_721_swap_pairs.GetErc721SwapPairsParams) middleware.Responder {
 		return erc721SwapCache.Serve(params.HTTPRequest, func() middleware.Responder {
@@ -156,9 +172,11 @@ func configureServer(s *http.Server, scheme, addr string) {
 	// init cache
 	store := cache.NewMemStorage()
 	swapPairCacheMS := config.CacheTTLs["swap_pairs"] * time.Millisecond.Nanoseconds()
+	erc20SwapPairCache = middlewares.NewMWCacher(store, time.Duration(swapPairCacheMS))
 	erc721SwapPairCache = middlewares.NewMWCacher(store, time.Duration(swapPairCacheMS))
 	erc1155SwapPairCache = middlewares.NewMWCacher(store, time.Duration(swapPairCacheMS))
 	swapsCacheMs := config.CacheTTLs["swaps"] * time.Millisecond.Nanoseconds()
+	erc20SwapCache = middlewares.NewMWCacher(store, time.Duration(swapsCacheMs))
 	erc721SwapCache = middlewares.NewMWCacher(store, time.Duration(swapsCacheMs))
 	erc1155SwapCache = middlewares.NewMWCacher(store, time.Duration(swapsCacheMs))
 	infoCacheMs := config.CacheTTLs["info"] * time.Millisecond.Nanoseconds()
@@ -170,7 +188,7 @@ func configureServer(s *http.Server, scheme, addr string) {
 	}
 	// init db
 	dbConfig := config.DB
-	erc721swapPairDao, erc721swapDao, erc1155swapPairDao, erc1155swapDao, err := dao.NewDaoServices(dbConfig.DSN, dbConfig.LogLevel)
+	erc20swapPairDao, erc20swapDao, erc721swapPairDao, erc721swapDao, erc1155swapPairDao, erc1155swapDao, err := dao.NewDaoServices(dbConfig.DSN, dbConfig.LogLevel)
 	if err != nil {
 		panic(err)
 	}
@@ -178,6 +196,8 @@ func configureServer(s *http.Server, scheme, addr string) {
 	// init env
 	env = &uenv.Env{
 		Config:             config,
+		ERC20SwapPairDao:  erc20swapPairDao,
+		ERC20SwapDao:      erc20swapDao,
 		ERC721SwapPairDao:  erc721swapPairDao,
 		ERC721SwapDao:      erc721swapDao,
 		ERC1155SwapPairDao: erc1155swapPairDao,

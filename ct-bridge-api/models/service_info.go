@@ -17,24 +17,6 @@ import (
 // swagger:model ServiceInfo
 type ServiceInfo struct {
 
-	// bsc chain id
-	BscChainID int64 `json:"bsc_chain_id"`
-
-	// bsc erc 1155 swap agent
-	BscErc1155SwapAgent string `json:"bsc_erc_1155_swap_agent"`
-
-	// bsc erc 721 swap agent
-	BscErc721SwapAgent string `json:"bsc_erc_721_swap_agent"`
-
-	// eth chain id
-	EthChainID int64 `json:"eth_chain_id"`
-
-	// eth erc 1155 swap agent
-	EthErc1155SwapAgent string `json:"eth_erc_1155_swap_agent"`
-
-	// eth erc 721 swap agent
-	EthErc721SwapAgent string `json:"eth_erc_721_swap_agent"`
-
 	// Ct chain id
 	CtChainID int64 `json:"ct_chain_id"`
 
@@ -43,6 +25,9 @@ type ServiceInfo struct {
 
 	// bsc erc 721 swap agent
 	CtErc721SwapAgent string `json:"ct_erc_721_swap_agent"`
+
+	// bsc erc 20 swap agent
+	CtErc20SwapAgent string `json:"ct_erc_20_swap_agent"`
 
 	// coo chain id
 	CooChainID int64 `json:"coo_chain_id"`
@@ -53,23 +38,9 @@ type ServiceInfo struct {
 	// Coo erc 721 swap agent
 	CooErc721SwapAgent string `json:"coo_erc_721_swap_agent"`
 
-	// fantom chain id
-	FantomChainID int64 `json:"fantom_chain_id"`
+	// Coo erc 721 swap agent
+	CooErc20SwapAgent string `json:"coo_erc_20_swap_agent"`
 
-	// fantom erc 1155 swap agent
-	FantomErc1155SwapAgent string `json:"fantom_erc_1155_swap_agent"`
-
-	// fantom erc 721 swap agent
-	FantomErc721SwapAgent string `json:"fantom_erc_721_swap_agent"`
-
-	// polygon chain id
-	PolygonChainID int64 `json:"polygon_chain_id"`
-
-	// polygon erc 1155 swap agent
-	PolygonErc1155SwapAgent string `json:"polygon_erc_1155_swap_agent"`
-
-	// polygon erc 721 swap agent
-	PolygonErc721SwapAgent string `json:"polygon_erc_721_swap_agent"`
 }
 
 // Validate validates this service info

@@ -112,29 +112,20 @@ export type ChainData = {
   registerFee: number;
   transferFee: number;
   currency: string;
+  swapAgent20Address: string;
   swapAgent721Address: string;
   swapAgent1155Address: string;
 };
 
 export type InfoData = {
-  bsc_erc_1155_swap_agent: string;
-  bsc_erc_721_swap_agent: string;
-  eth_erc_1155_swap_agent: string;
-  eth_erc_721_swap_agent: string;
   ct_erc_1155_swap_agent: string;
+  ct_erc_20_swap_agent: string;
   ct_erc_721_swap_agent: string;
   coo_erc_1155_swap_agent: string;
+  coo_erc_20_swap_agent: string;
   coo_erc_721_swap_agent: string;
-  polygon_erc_721_swap_agent: string;
-  polygon_erc_1155_swap_agent: string;
-  fantom_erc_721_swap_agent: string;
-  fantom_erc_1155_swap_agent: string;
-  eth_chain_id: number;
-  bsc_chain_id: number;
   ct_chain_id: number;
   coo_chain_id: number;
-  polygon_chain_id: number;
-  fantom_chain_id: number;
 };
 
 export interface TransferData {

@@ -7,6 +7,8 @@ package operations
 
 import (
 	"fmt"
+	"github.com/qydata/ct-evm-compatible-bridge-api/restapi/operations/erc_20_swap_pairs"
+	"github.com/qydata/ct-evm-compatible-bridge-api/restapi/operations/erc_20_swaps"
 	"net/http"
 	"strings"
 
@@ -107,6 +109,10 @@ type BscEvmCompatibleBridgeAPIAPI struct {
 	Erc721SwapPairsGetErc721SwapPairsHandler erc_721_swap_pairs.GetErc721SwapPairsHandler
 	// Erc721SwapsGetErc721SwapsHandler sets the operation handler for the get erc721 swaps operation
 	Erc721SwapsGetErc721SwapsHandler erc_721_swaps.GetErc721SwapsHandler
+	// Erc20SwapPairsGetErc20SwapPairsHandler sets the operation handler for the get erc20 swap pairs operation
+	Erc20SwapPairsGetErc20SwapPairsHandler erc_20_swap_pairs.GetErc20SwapPairsHandler
+	// Erc20SwapsGetErc20SwapsHandler sets the operation handler for the get erc20 swaps operation
+	Erc20SwapsGetErc20SwapsHandler erc_20_swaps.GetErc20SwapsHandler
 	// SvcInfoGetInfoHandler sets the operation handler for the get info operation
 	SvcInfoGetInfoHandler svc_info.GetInfoHandler
 
@@ -197,6 +203,12 @@ func (o *BscEvmCompatibleBridgeAPIAPI) Validate() error {
 	}
 	if o.Erc721SwapsGetErc721SwapsHandler == nil {
 		unregistered = append(unregistered, "erc_721_swaps.GetErc721SwapsHandler")
+	}
+	if o.Erc20SwapPairsGetErc20SwapPairsHandler == nil {
+		unregistered = append(unregistered, "erc_20_swap_pairs.GetErc20SwapPairsHandler")
+	}
+	if o.Erc20SwapsGetErc20SwapsHandler == nil {
+		unregistered = append(unregistered, "erc_20_swaps.GetErc20SwapsHandler")
 	}
 	if o.SvcInfoGetInfoHandler == nil {
 		unregistered = append(unregistered, "svc_info.GetInfoHandler")
@@ -305,6 +317,14 @@ func (o *BscEvmCompatibleBridgeAPIAPI) initHandlerCache() {
 		o.handlers["GET"] = make(map[string]http.Handler)
 	}
 	o.handlers["GET"]["/v1/erc-721-swaps"] = erc_721_swaps.NewGetErc721Swaps(o.context, o.Erc721SwapsGetErc721SwapsHandler)
+	if o.handlers["GET"] == nil {
+		o.handlers["GET"] = make(map[string]http.Handler)
+	}
+	o.handlers["GET"]["/v1/erc-20-swap-pairs"] = erc_20_swap_pairs.NewGetErc20SwapPairs(o.context, o.Erc20SwapPairsGetErc20SwapPairsHandler)
+	if o.handlers["GET"] == nil {
+		o.handlers["GET"] = make(map[string]http.Handler)
+	}
+	o.handlers["GET"]["/v1/erc-20-swaps"] = erc_20_swaps.NewGetErc20Swaps(o.context, o.Erc20SwapsGetErc20SwapsHandler)
 	if o.handlers["GET"] == nil {
 		o.handlers["GET"] = make(map[string]http.Handler)
 	}

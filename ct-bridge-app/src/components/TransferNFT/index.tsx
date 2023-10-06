@@ -3,6 +3,7 @@ import Alert from 'antd/lib/alert';
 import ExclamationCircleOutlined from '@ant-design/icons/ExclamationCircleOutlined';
 import { getChainDataByChainId, useChainList } from 'src/helpers/wallet';
 import { useWeb3React } from '@web3-react/core';
+import contractErc20 from 'src/contract/erc20';
 import contractErc721 from 'src/contract/erc721';
 import contractErc1155 from 'src/contract/erc1155';
 import message from 'antd/lib/message';
@@ -11,7 +12,11 @@ import { ethers } from 'ethers';
 import { bridgeAddressState, nftState, stepDataState } from 'src/state/bridge';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { useEffect, useState } from 'react';
-import { get1155TransferStatus, get721TransferData } from 'src/apis/nft';
+import {
+  get1155TransferStatus,
+  get721TransferData,
+  get20TransferData
+} from 'src/apis/nft';
 import TransferStatusLabel from 'src/components/TransferStatusLabel';
 import { NFTStandard, TransferStatus } from 'src/interfaces/nft';
 import TextAddress from 'src/components/TextAddress';
@@ -48,7 +53,9 @@ const TransferNFT: React.FC = () => {
 
   const checkStatus = async () => {
     let result = null;
-    if (standard === NFTStandard.ERC_721) {
+    if (standard === NFTStandard.ERC_20) {
+      result = await get20TransferData(walletAddress, txHash);
+    } else if (standard === NFTStandard.ERC_721) {
       result = await get721TransferData(walletAddress, txHash);
     } else {
       result = await get1155TransferStatus(walletAddress, txHash);
@@ -72,9 +79,20 @@ const TransferNFT: React.FC = () => {
 
   const transfer = async () => {
     let transferTxHash;
-    const tokenIdHex = ethers.BigNumber.from(tokenId!.toString()).toHexString();
-    console.log(tokenIdHex);
-    if (standard === NFTStandard.ERC_721) {
+
+    if (standard === NFTStandard.ERC_20) {
+      transferTxHash = await contractErc20.transferToken(
+        chainData.swapAgent20Address,
+        tokenAddress,
+        bridgeAddress.targetAddress,
+        uiAmount!,
+        bridgeAddress.targetChain!,
+        chainData.transferFee
+      );
+    } else if (standard === NFTStandard.ERC_721) {
+      const tokenIdHex = ethers.BigNumber.from(
+        tokenId!.toString()
+      ).toHexString();
       transferTxHash = await contractErc721.transferToken(
         chainData.swapAgent721Address,
         tokenAddress,
@@ -84,6 +102,9 @@ const TransferNFT: React.FC = () => {
         chainData.transferFee
       );
     } else if (standard === NFTStandard.ERC_1155) {
+      const tokenIdHex = ethers.BigNumber.from(
+        tokenId!.toString()
+      ).toHexString();
       transferTxHash = await contractErc1155.transferToken(
         chainData.swapAgent1155Address,
         tokenAddress,
