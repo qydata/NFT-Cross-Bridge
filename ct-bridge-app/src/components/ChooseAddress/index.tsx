@@ -120,7 +120,7 @@ const ChooseAccount: React.FC<ChooseAccountPropType> = ({ active, next }) => {
                     value={bridgeAddress.targetChain}
                     onChange={(value) => {
                       let sourceChain = bridgeAddress.sourceChain;
-                      console.log(bridgeAddress.sourceChain);
+                      // console.log(bridgeAddress.sourceChain);
                       if (bridgeAddress.sourceChain === value) {
                         sourceChain = undefined;
                       }

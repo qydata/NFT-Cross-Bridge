@@ -1,4 +1,4 @@
-FROM golang:1.16.10-alpine3.14
+FROM golang:1.19-alpine3.18
 
 # Set up apk dependencies
 ENV PACKAGES make git libc-dev bash gcc linux-headers eudev-dev curl ca-certificates
@@ -21,4 +21,4 @@ RUN apk add --no-cache $PACKAGES && \
     rm -rf ./vendor
 
 # Run the app
-CMD ./build/ct-evm-compatible-bridge-api --scheme=$AP_SCHEME --host=$AP_HOST --port=$AP_PORT --cleanup-timeout=$AP_CLEANUP_TIMEOUT --config-file=config.json
+#CMD ./build/ct-evm-compatible-bridge-api --scheme=$AP_SCHEME --host=$AP_HOST --port=$AP_PORT --cleanup-timeout=$AP_CLEANUP_TIMEOUT --config-file=config.json

@@ -40,7 +40,7 @@ const ChooseNFTModal: React.FC<ChooseNFTModalPropType> = ({
   onCancel
 }: any) => {
   const { account, chainId } = useWeb3React();
-  const [nftStandard, setNftStandard] = useState(NFTStandard.ERC_721);
+  const [nftStandard, setNftStandard] = useState(NFTStandard.ERC_20);
   const [loading, setLoading] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [items, setItems] = useState<INFTParsedTokenAccount[]>([]);
@@ -227,12 +227,21 @@ const ChooseNFTModal: React.FC<ChooseNFTModalPropType> = ({
           <Col span={17}>
             <Input onChange={(e) => setContractAddress(e.target.value)} />
           </Col>
-          <Col span={7}>
-            <p>NFT ID: </p>
-          </Col>
-          <Col span={17}>
-            <Input type='text' onChange={(e) => setTokenId(e.target.value)} />
-          </Col>
+
+          {nftStandard != NFTStandard.ERC_20 && (
+            <>
+              <Col span={7}>
+                <p>NFT ID: </p>
+              </Col>
+              <Col span={17}>
+                <Input
+                  type='text'
+                  onChange={(e) => setTokenId(e.target.value)}
+                />
+              </Col>
+            </>
+          )}
+
           <Col span={13}></Col>
           <Col span={5}>
             <Button
@@ -277,18 +286,28 @@ const ChooseNFTModal: React.FC<ChooseNFTModalPropType> = ({
                     hoverable
                     onClick={() => onSelected(item)}
                     cover={
-                      <Image
-                        width={170}
-                        height={150}
-                        alt={item.name!}
-                        src={item.image!}
-                      />
+                      <>
+                        {nftStandard == NFTStandard.ERC_20 ? (
+                          <></>
+                        ) : (
+                          <Image
+                            width={170}
+                            height={150}
+                            alt={item.name!}
+                            src={item.image!}
+                          />
+                        )}
+                      </>
                     }
                   >
                     <Title level={5} ellipsis>
                       {item.name}
                     </Title>
-                    <Title level={5}>#{item.tokenId}</Title>
+                    {nftStandard != NFTStandard.ERC_20 && (
+                      <>
+                        <Title level={5}>#{item.tokenId}</Title>
+                      </>
+                    )}
                     <p>{formatAddress(item.contractAddress, 4)}</p>
                   </Card>
                 </Col>

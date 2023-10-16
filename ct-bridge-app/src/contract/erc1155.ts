@@ -51,7 +51,7 @@ class Contract1155 {
         tokenId.toString()
       ).toHexString();
       const tokenUri = await contract.uri(tokenIdHex);
-      console.log('tokenURI=>>>>', tokenUri);
+      // console.log('tokenURI=>>>>', tokenUri);
       return tokenUri.replace(
         '{id}',
         Number(tokenId).toString(16).padStart(64, '0')

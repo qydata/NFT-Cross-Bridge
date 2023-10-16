@@ -5,7 +5,6 @@ const MyNFTPageStyle = styled.div`
     text-align: center;
     margin-bottom: 24px;
   }
-
   .loading-container {
     display: flex;
     flex-direction: column;
@@ -13,9 +12,9 @@ const MyNFTPageStyle = styled.div`
     padding-top: 40px;
   }
 
-  .reload-container {
+  .search-container {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     margin-bottom: 16px;
   }
 
@@ -33,6 +32,36 @@ const MyNFTPageStyle = styled.div`
   }
   .ant-card-cover {
     border-radius: 8px;
+  }
+  .ant-radio-group {
+    font-weight: bold;
+    &.ant-radio-group-solid
+      .ant-radio-button-wrapper-checked:not(
+        .ant-radio-button-wrapper-disabled
+      ) {
+      background: #3fafac;
+      font-family: monospace;
+      border-color: #3fafac;
+      &:hover {
+        background: #2c9794;
+        border-color: #2c9794;
+        color: white;
+      }
+    }
+    .ant-radio-button-wrapper-checked:not(
+        .ant-radio-button-wrapper-disabled
+      )::before {
+      background: #3fafac;
+    }
+    .ant-radio-button-wrapper:hover {
+      color: #2c9794;
+    }
+    .ant-radio-button-wrapper:first-child {
+      border-radius: 10px 0px 0px 10px;
+    }
+    .ant-radio-button-wrapper:last-child {
+      border-radius: 0px 10px 10px 0px;
+    }
   }
   @media all and (orientation: portrait) {
     /*竖屏*/

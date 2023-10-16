@@ -108,9 +108,7 @@ const NFTDetail: React.FC<NFTDetailPropType> = ({
   };
 
   async function checkNftStatus() {
-    console.log(0);
     const isApproved = await checkIsApproved();
-    console.log(1);
     if (isApproved) {
       let isRegister;
       if (standard === NFTStandard.ERC_20) {
@@ -267,6 +265,7 @@ const NFTDetail: React.FC<NFTDetailPropType> = ({
                 className='token-amount-input'
                 value={uiAmount}
                 onChange={(e) => setAmount(Number(e.target.value))}
+                suffix={standard != NFTStandard.ERC_20 ? '' : 'WEI'}
               />
             </>
           )}

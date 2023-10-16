@@ -9,11 +9,15 @@ import { getNFTList } from 'src/apis/nft';
 import Image from 'src/components/Image';
 import { formatAddress } from 'src/helpers/wallet';
 import { useWeb3React } from '@web3-react/core';
-import { INFTParsedTokenAccount, NFTStandard } from 'src/interfaces/nft';
+import {
+  INFTParsedTokenAccount,
+  NFT_STANDARD_OPTIONS,
+  NFTStandard
+} from 'src/interfaces/nft';
 import Button from 'src/components/Button';
 import ReloadOutlined from '@ant-design/icons/ReloadOutlined';
 import MyNFTPageStyle from './style';
-
+import Radio from 'antd/lib/radio';
 const MyNFTPage: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const { account, chainId } = useWeb3React();
@@ -46,7 +50,14 @@ const MyNFTPage: React.FC = () => {
         <div className='header'>
           <Title level={2}>我的 NFT</Title>
         </div>
-        <div className='reload-container'>
+        <div className='search-container'>
+          <Radio.Group
+            options={NFT_STANDARD_OPTIONS}
+            onChange={(e) => setNftStandard(e.target.value)}
+            value={nftStandard}
+            optionType='button'
+            buttonStyle='solid'
+          />
           <Button className='reload-button' shape='round' onClick={fetchNFT}>
             <ReloadOutlined /> 重新加载
           </Button>
@@ -63,18 +74,28 @@ const MyNFTPage: React.FC = () => {
                 <Card
                   hoverable
                   cover={
-                    <Image
-                      width='100%'
-                      height={150}
-                      alt={item.name!}
-                      src={item.image!}
-                    />
+                    <>
+                      {nftStandard == NFTStandard.ERC_20 ? (
+                        <></>
+                      ) : (
+                        <Image
+                          width='100%'
+                          height={150}
+                          alt={item.name!}
+                          src={item.image!}
+                        />
+                      )}
+                    </>
                   }
                 >
                   <Title level={5} ellipsis>
                     {item.name}
                   </Title>
-                  <Title level={5}>#{item.tokenId}</Title>
+                  {nftStandard != NFTStandard.ERC_20 && (
+                    <>
+                      <Title level={5}>#{item.tokenId}</Title>
+                    </>
+                  )}
                   <p>{formatAddress(item.contractAddress, 6)}</p>
                 </Card>
               </Col>

@@ -52,7 +52,7 @@ class Contract20 {
     const contract = getContract(tokenAddress, erc20Abi);
     try {
       const name = await contract.name();
-      console.log('name=>>>>', name);
+      // console.log('name=>>>>', name);
       return name;
     } catch {
       message.error('Cannot find token!');
@@ -72,7 +72,7 @@ class Contract20 {
       async function decompile(contractAddr: string) {
         const code = await getProvider().getCode(contractAddr);
         const evm = new EVM(code);
-        console.log(evm.getFunctions()); /* Get functions */
+        // console.log(evm.getFunctions()); /* Get functions */
         return evm.getFunctions();
       }
 
@@ -80,8 +80,8 @@ class Contract20 {
         const overrides = {
           value: ethers.utils.parseEther(fee.toString())
         };
-        console.log(tokenAddress, targetChainId);
-        console.log(agentAddress, overrides);
+        // console.log(tokenAddress, targetChainId);
+        // console.log(agentAddress, overrides);
 
         // 这里因为合约中没有判断erc20, 所以这里进行判断
         const arrFun = await decompile(tokenAddress);

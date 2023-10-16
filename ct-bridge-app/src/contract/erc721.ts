@@ -47,12 +47,12 @@ class Contract721 {
   async getTokenUri(tokenAddress: string, tokenId: string) {
     const contract = getContract(tokenAddress, erc721Abi);
     try {
-      console.log(tokenId);
-      console.log(typeof tokenId);
+      // console.log(tokenId);
+      // console.log(typeof tokenId);
       const tokenIdHex = ethers.BigNumber.from(
         tokenId.toString()
       ).toHexString();
-      console.log(tokenIdHex);
+      // console.log(tokenIdHex);
       const tokenUri = await contract.tokenURI(tokenIdHex);
       return tokenUri;
     } catch (e) {
@@ -74,8 +74,8 @@ class Contract721 {
         const overrides = {
           value: ethers.utils.parseEther(fee.toString())
         };
-        console.log(tokenAddress, targetChainId);
-        console.log(agentAddress, overrides);
+        // console.log(tokenAddress, targetChainId);
+        // console.log(agentAddress, overrides);
         const response = await contract.registerSwapPair(
           tokenAddress,
           targetChainId,

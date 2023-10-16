@@ -91,7 +91,7 @@ export const getNFTList = async (
         item.image = item.metadata?.image;
         item.logo_url = item.metadata?.image;
 
-        console.log(item.type);
+        // console.log(item.type);
         items.push(item);
       } else if (
         item.type == 'ERC-20' &&
@@ -109,11 +109,11 @@ export const getNFTList = async (
         item.token_balance = item.balance;
         item.external_data = {};
         item.external_data.image = item.metadata?.image;
-        console.log(item.type);
+        // console.log(item.type);
         items.push(item);
       }
     }
-    console.log(items);
+    // console.log(items);
     return parseNFTData(address, items, nftStandard, chainId);
   }
   return [];
@@ -311,6 +311,10 @@ export const getTransferStatusList = async (
   sender: string,
   query: Record<string, string> = {}
 ) => {
+  const url20 = `${
+    setting.API_URL
+  }/v1/erc-20-swaps?sender=${sender}&${serializeQueryString(query)}`;
+  const response20 = await axios.get<{ erc_20_swaps: Array<any> }>(url20);
   const url721 = `${
     setting.API_URL
   }/v1/erc-721-swaps?sender=${sender}&${serializeQueryString(query)}`;
@@ -320,6 +324,7 @@ export const getTransferStatusList = async (
   }/v1/erc-1155-swaps?sender=${sender}&${serializeQueryString(query)}`;
   const response1155 = await axios.get<{ erc_1155_swaps: Array<any> }>(url1155);
   return {
+    list20: response20.data.erc_20_swaps,
     list721: response721.data.erc_721_swaps,
     list1155: response1155.data.erc_1155_swaps
   };
