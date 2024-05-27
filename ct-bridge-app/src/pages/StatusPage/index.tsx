@@ -132,7 +132,7 @@ const StatusPage: React.FC = () => {
       dataIndex: 'token_id',
       key: 'token_id',
       fixed: true,
-      render: (text: string, record: any) => (
+      render: (text: string) => (
         <>
           <TextAddress address={text} length={4} />
         </>

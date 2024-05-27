@@ -2,7 +2,7 @@ import Title from 'antd/lib/typography/Title';
 import Button from 'src/components/Button';
 import Row from 'antd/lib/row';
 import Col from 'antd/lib/col';
-import Image from 'src/components/Image';
+import { Image } from 'antd';
 import CloseCircleOutlined from '@ant-design/icons/CloseCircleOutlined';
 import ExclamationCircleOutlined from '@ant-design/icons/ExclamationCircleOutlined';
 import { bridgeAddressState, nftState } from 'src/state/bridge';
@@ -51,7 +51,7 @@ const NFTDetail: React.FC<NFTDetailPropType> = ({
   const bridgeAddress = useRecoilValue(bridgeAddressState);
   const [nftStatus, setNftStatus] = useState<NftStatus>(NftStatus.Loading);
   const chainList = useChainList();
-  const { account, activate, deactivate } = useWeb3React();
+  const { account } = useWeb3React();
 
   const {
     name,
@@ -95,9 +95,6 @@ const NFTDetail: React.FC<NFTDetailPropType> = ({
         tokenIdHex
       );
     } else if (standard === NFTStandard.ERC_1155) {
-      const tokenIdHex = ethers.BigNumber.from(
-        tokenId!.toString()
-      ).toHexString();
       return contractErc1155.getApprove(
         tokenAddress,
         walletAddress,
@@ -160,9 +157,6 @@ const NFTDetail: React.FC<NFTDetailPropType> = ({
         tokenIdHex
       );
     } else if (standard === NFTStandard.ERC_1155) {
-      const tokenIdHex = ethers.BigNumber.from(
-        tokenId!.toString()
-      ).toHexString();
       isApproved = await contractErc1155.approve(
         chainData.swapAgent1155Address,
         tokenAddress
@@ -243,7 +237,12 @@ const NFTDetail: React.FC<NFTDetailPropType> = ({
       </div>
       <Row gutter={24}>
         <Col lg={12} md={24} sm={24} xs={24}>
-          <Image src={image!} alt={name!} width='100%' />
+          <Image
+            src={image!}
+            alt={name!}
+            width='100%'
+            fallback={`/加载失败.svg`}
+          />
         </Col>
         <Col lg={12} md={24} sm={24} xs={24} className='detail-container'>
           <Title level={5}>名称</Title>

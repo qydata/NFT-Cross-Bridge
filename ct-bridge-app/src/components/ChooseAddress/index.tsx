@@ -1,13 +1,8 @@
-import Row from 'antd/lib/row';
-import Col from 'antd/lib/col';
-import Select from 'antd/lib/select';
-import Input from 'antd/lib/input';
-import Tooltip from 'antd/lib/tooltip';
 import Title from 'antd/lib/typography/Title';
-import Space from 'antd/lib/space';
 import Button from 'src/components/Button';
 import { useEffect } from 'react';
 import { useWeb3React } from '@web3-react/core';
+import { Col, Image, Input, message, Row, Select, Space, Tooltip } from 'antd';
 import {
   getChainDataByChainId,
   requestChangeNetwork,
@@ -16,10 +11,9 @@ import {
 import ArrowRightOutlined from '@ant-design/icons/ArrowRightOutlined';
 import { bridgeAddressState } from 'src/state/bridge';
 import { useRecoilState } from 'recoil';
-
 import ChooseAddressStyle from './style';
-import { message } from 'antd';
 import Web3ConnectButton from '../ConnectWalletButton/web3';
+import chainData from './chainData.json';
 
 const { Option } = Select;
 
@@ -32,6 +26,7 @@ const ChooseAccount: React.FC<ChooseAccountPropType> = ({ active, next }) => {
   const chainList = useChainList();
   const [bridgeAddress, setBridgeAddress] = useRecoilState(bridgeAddressState);
   const { account, chainId } = useWeb3React();
+
   const validate = (): boolean => {
     if (
       !bridgeAddress.targetChain ||
@@ -56,6 +51,14 @@ const ChooseAccount: React.FC<ChooseAccountPropType> = ({ active, next }) => {
       next();
     }
   };
+
+  function getLogo(val: string) {
+    for (const chainDateElement of chainData) {
+      if (chainDateElement['简称'] == val) {
+        return chainDateElement['官网地址'] + chainDateElement['图标'];
+      }
+    }
+  }
 
   useEffect(() => {
     if (bridgeAddress.sourceChain) {
@@ -97,9 +100,14 @@ const ChooseAccount: React.FC<ChooseAccountPropType> = ({ active, next }) => {
                       });
                     }}
                   >
-                    {chainList.map((chainItem) => (
-                      <Option value={chainItem.id} key={chainItem.id}>
-                        <img width={35} src={`/${chainItem.value}.svg`} />{' '}
+                    {chainList.map((chainItem, index) => (
+                      <Option value={chainItem.id} key={index}>
+                        <Image
+                          width={35}
+                          src={getLogo(chainItem.value)}
+                          alt={chainItem.value}
+                          fallback={`/加载失败.svg`}
+                        />{' '}
                         {chainItem.name}
                       </Option>
                     ))}
@@ -131,9 +139,14 @@ const ChooseAccount: React.FC<ChooseAccountPropType> = ({ active, next }) => {
                       });
                     }}
                   >
-                    {chainList.map((chainItem) => (
-                      <Option value={chainItem.id} key={chainItem.id}>
-                        <img width={35} src={`/${chainItem.value}.svg`} />{' '}
+                    {chainList.map((chainItem, index) => (
+                      <Option value={chainItem.id} key={index}>
+                        <Image
+                          width={35}
+                          src={getLogo(chainItem.value)}
+                          alt={chainItem.value}
+                          fallback={`/加载失败.svg`}
+                        />{' '}
                         {chainItem.name}
                       </Option>
                     ))}

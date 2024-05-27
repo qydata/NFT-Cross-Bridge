@@ -25,7 +25,7 @@ const HomePageStyle = styled.div`
   .image-container {
     img {
       width: 50px;
-      margin-left: 16px;
+      margin: 8px 10px;
     }
   }
 `;

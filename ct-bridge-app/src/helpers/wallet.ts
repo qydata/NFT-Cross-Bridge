@@ -2,41 +2,45 @@ import { message } from 'antd';
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { getInfo } from 'src/apis/info';
-import { Chain, ChainData } from 'src/interfaces/nft';
+import { ChainData } from 'src/interfaces/nft';
 import { chainListState, infoState } from 'src/state/info';
 
 export const useChainList = () => {
   const [info, setInfo] = useRecoilState(infoState);
   const [chainList, setChainList] = useRecoilState(chainListState);
 
+  function capitalizeFirstLetter(str: string) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+
   useEffect(() => {
     if (!info) {
       getInfo().then((data) => {
         setInfo(data);
-        setChainList([
-          {
-            id: data.ct_chain_id,
-            name: 'Ct Chain',
-            value: Chain.CT,
+        const keys = Object.keys(data);
+        const _chainKey = new Set<string>();
+        const _chainList = [];
+        for (const key of keys) {
+          _chainKey.add(key.split('_')[0]);
+        }
+
+        // console.log(Array.from(_chainKey));
+        const from: string[] = Array.from(_chainKey);
+        for (const key1 of from) {
+          _chainList.push({
+            id: data[`${key1}_chain_id`],
+            name: `${capitalizeFirstLetter(key1)} Chain`,
+            value: key1,
             registerFee: 0.1,
             transferFee: 0.2,
-            currency: 'CT',
-            swapAgent20Address: data.ct_erc_20_swap_agent,
-            swapAgent721Address: data.ct_erc_721_swap_agent,
-            swapAgent1155Address: data.ct_erc_1155_swap_agent
-          },
-          {
-            id: data.coo_chain_id,
-            name: 'Coo Test Chain',
-            value: Chain.COO,
-            registerFee: 0.1,
-            transferFee: 0.2,
-            currency: 'COO',
-            swapAgent20Address: data.coo_erc_20_swap_agent,
-            swapAgent721Address: data.coo_erc_721_swap_agent,
-            swapAgent1155Address: data.coo_erc_1155_swap_agent
-          }
-        ]);
+            currency: key1.toUpperCase(),
+            swapAgent20Address: data[`${key1}_erc_20_swap_agent`],
+            swapAgent721Address: data[`${key1}_erc_721_swap_agent`],
+            swapAgent1155Address: data[`${key1}_erc_1155_swap_agent`]
+          });
+        }
+
+        setChainList(_chainList);
       });
     }
   }, [info]);
@@ -106,7 +110,7 @@ export const requestChangeNetwork = async (
     }
   } else {
     console.error(
-      "Can't setup the BSC network on metamask because window.ethereum is undefined"
+      `Can't setup the BSC network on metamask because window.ethereum is undefined`
     );
     return false;
   }

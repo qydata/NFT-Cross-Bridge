@@ -39,6 +39,9 @@ module.exports = {
     'explicit-module-boundary-types': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/naming-convention': 'off',
+    'prettier/prettier': ["error", {
+      "endOfLine": "auto"
+    }],
   },
   ignorePatterns: ['src/_aqua/*.ts'],
 };

@@ -6,7 +6,7 @@ import Col from 'antd/lib/col';
 import Card from 'antd/lib/card';
 import Title from 'antd/lib/typography/Title';
 import { getNFTList } from 'src/apis/nft';
-import Image from 'src/components/Image';
+import { Image } from 'antd';
 import { formatAddress } from 'src/helpers/wallet';
 import { useWeb3React } from '@web3-react/core';
 import {
@@ -83,6 +83,7 @@ const MyNFTPage: React.FC = () => {
                           height={150}
                           alt={item.name!}
                           src={item.image!}
+                          fallback={`/加载失败.svg`}
                         />
                       )}
                     </>

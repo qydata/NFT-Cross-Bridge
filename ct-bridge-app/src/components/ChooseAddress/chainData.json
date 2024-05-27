@@ -1,0 +1,191 @@
+[
+  {
+    "平台名称": "星火链（SparkChain）",
+    "官网地址": "https://bitfactory.cn/",
+    "简称": "sparkchain",
+    "简称（首字母大写）": "Sparkchain",
+    "图标": "favicon.ico"
+  },
+  {
+    "平台名称": "长安链（ChainMaker）",
+    "官网地址": "https://chainmaker.org.cn/",
+    "简称": "chainmaker",
+    "简称（首字母大写）": "Chainmaker",
+    "图标": "favicon.ico"
+  },
+  {
+    "平台名称": "区块链服务网络（BSN）",
+    "官网地址": "https://www.bsnbase.com/",
+    "简称": "bsn",
+    "简称（首字母大写）": "Bsn",
+    "图标": "favicon.svg"
+  },
+  {
+    "平台名称": "趣链（Hyperchain）",
+    "官网地址": "https://www.hyperchain.cn/",
+    "简称": "hyperchain",
+    "简称（首字母大写）": "Hyperchain",
+    "图标": "assets/images/favicon.ico"
+  },
+  {
+    "平台名称": "布比链（BubiChain）",
+    "官网地址": "https://www.bubi.cn/",
+    "简称": "bubichain",
+    "简称（首字母大写）": "Bubichain",
+    "图标": "bubi.png"
+  },
+  {
+    "平台名称": "蚂蚁区块链（Ant Blockchain）",
+    "官网地址": "https://antdigital.com/",
+    "简称": "antblockchain",
+    "简称（首字母大写）": "Antblockchain",
+    "图标": "favicon.ico"
+  },
+  {
+    "平台名称": "腾讯区块链（Tencent Blockchain）",
+    "官网地址": "https://www.tencentcloud.com/",
+    "简称": "tencentblockchain",
+    "简称（首字母大写）": "Tencentblockchain",
+    "图标": "favicon.ico"
+  },
+  {
+    "平台名称": "京东智臻链（JD Blockchain Open Platform）",
+    "官网地址": "https://img1.jcloudcs.com/",
+    "简称": "jdblockchain",
+    "简称（首字母大写）": "Jdblockchain",
+    "图标": "portal/favicon.ico"
+  },
+  {
+    "平台名称": "百度超级链（XuperChain）",
+    "官网地址": "https://xuper-fe-assets.cdn.bcebos.com/",
+    "简称": "xuperchain",
+    "简称（首字母大写）": "Xuperchain",
+    "图标": "static/platform-home/static/images/title/favicon_0b017ba.png"
+  },
+  {
+    "平台名称": "小蚁（NEO）",
+    "官网地址": "https://neo.org/",
+    "简称": "neo",
+    "简称（首字母大写）": "Neo",
+    "图标": "favicon.ico"
+  },
+  {
+    "平台名称": "量子链（Qtum）",
+    "官网地址": "https://qtum.org/",
+    "简称": "qtum",
+    "简称（首字母大写）": "Qtum",
+    "图标": "favicon.ico"
+  },
+  {
+    "平台名称": "唯链（VeChain）",
+    "官网地址": "https://www.vechain.org/",
+    "简称": "vechain",
+    "简称（首字母大写）": "Vechain",
+    "图标": "wp-content/uploads/2023/02/vechain-favicon.png"
+  },
+  {
+    "平台名称": "公信宝（GXChain）",
+    "官网地址": "https://block.gxb.io/",
+    "简称": "gxchain",
+    "简称（首字母大写）": "Gxchain",
+    "图标": "static/favicon.ico"
+  },
+  {
+    "平台名称": "原本区块链（OracleChain）",
+    "官网地址": "https://blabberf.itch.io/",
+    "简称": "oraclechain",
+    "简称（首字母大写）": "Oraclechain",
+    "图标": "favicon.ico"
+  },
+  {
+    "平台名称": "本体（Ontology）",
+    "官网地址": "https://ont.io/",
+    "简称": "ontology",
+    "简称（首字母大写）": "Ontology",
+    "图标": "img/logo.svg"
+  },
+  {
+    "平台名称": "比原链（Bytom）",
+    "官网地址": "https://bytomdao.org/",
+    "简称": "bytom",
+    "简称（首字母大写）": "Bytom",
+    "图标": "favicon.ico"
+  },
+  {
+    "平台名称": "达尔文网络（Darwinia Network）",
+    "官网地址": "https://darwinia.network/",
+    "简称": "darwinia",
+    "简称（首字母大写）": "Darwinia",
+    "图标": "favicon.svg"
+  },
+  {
+    "平台名称": "火币生态链（Heco）",
+    "官网地址": "https://www.htx.com/",
+    "简称": "heco",
+    "简称（首字母大写）": "Heco",
+    "图标": "favicon.ico"
+  },
+  {
+    "平台名称": "波卡（Polkadot）",
+    "官网地址": "https://polkadot.network/",
+    "简称": "polkadot",
+    "简称（首字母大写）": "Polkadot",
+    "图标": "favicon.svg"
+  },
+  {
+    "平台名称": "Conflux",
+    "官网地址": "https://confluxnetwork.org/",
+    "简称": "conflux",
+    "简称（首字母大写）": "Conflux",
+    "图标": "favicon.ico"
+  },
+  {
+    "平台名称": "比特股（BitShares）",
+    "官网地址": "https://wallet.bitshares.org/",
+    "简称": "bitshares",
+    "简称（首字母大写）": "Bitshares",
+    "图标": "favicon.ico"
+  },
+  {
+    "平台名称": "YOYOW",
+    "官网地址": "https://yoyow.org/",
+    "简称": "yoyow",
+    "简称（首字母大写）": "Yoyow",
+    "图标": "favicon.ico"
+  },
+  {
+    "平台名称": "Ultrain",
+    "官网地址": "https://www.crunchbase.com/",
+    "简称": "ultrain",
+    "简称（首字母大写）": "Ultrain",
+    "图标": "favicon.ico"
+  },
+  {
+    "平台名称": "Cocos-BCX",
+    "官网地址": "https://cocosbcx.io/",
+    "简称": "cocosbcx",
+    "简称（首字母大写）": "Cocosbcx",
+    "图标": "favicon.ico"
+  },
+  {
+    "平台名称": "Achain",
+    "官网地址": "https://www.spreadchein.org/",
+    "简称": "achain",
+    "简称（首字母大写）": "Achain",
+    "图标": "favicon.ico"
+  },
+  {
+    "平台名称": "草田链",
+    "官网地址": "https://ctblock.cn/",
+    "简称": "ct",
+    "简称（首字母大写）": "Ct",
+    "图标": "images/favicon-32x32-deed540f4586327d916466ea9914bda8.png?vsn=d"
+  },
+  {
+    "平台名称": "Coo 链",
+    "官网地址": "https://blog.coozw.com/",
+    "简称": "coo",
+    "简称（首字母大写）": "Coo",
+    "图标": "img/favicon.svg"
+  }
+]

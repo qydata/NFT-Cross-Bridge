@@ -6,7 +6,6 @@ import CloseCircleOutlined from '@ant-design/icons/CloseCircleOutlined';
 import { SUPPORTED_CHAINS } from 'src/constants';
 import Title from 'antd/lib/typography/Title';
 import { useEffect, useState } from 'react';
-import UAuth, { UserInfo } from '@uauth/js';
 import { setRedirectUrl } from 'src/helpers';
 import { useRecoilState } from 'recoil';
 import { DEFAULT_PROFILE, profileState } from 'src/state/profile';
@@ -16,11 +15,9 @@ export const injected = new InjectedConnector({
   supportedChainIds: SUPPORTED_CHAINS
 });
 
-let uauth: UAuth;
-
 const ProviderButton = ({ children, onClick, icon }: any) => (
   <Button shape='round' block onClick={onClick}>
-    <img src={icon} />
+    <img src={icon} alt={``} />
     {children}
   </Button>
 );
@@ -28,7 +25,6 @@ const ProviderButton = ({ children, onClick, icon }: any) => (
 const ConnectWalletButton = ({ block, style }: any) => {
   const { account, activate, deactivate } = useWeb3React();
   const [modalVisible, setModalVisible] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [profile, setProfile] = useRecoilState(profileState);
 
   useEffect(() => {
@@ -63,13 +59,6 @@ const ConnectWalletButton = ({ block, style }: any) => {
     }
   };
 
-  const loginWithUD = () => {
-    setRedirectUrl();
-    uauth.login().catch((error: any) => {
-      console.error('login error:', error);
-    });
-  };
-
   return (
     <>
       <ModalStyle
@@ -91,22 +80,11 @@ const ConnectWalletButton = ({ block, style }: any) => {
         style={style}
         block={block}
         shape='round'
-        loading={loading}
         onClick={
           profile.walletAddress ? disconnect : () => setModalVisible(true)
         }
       >
-        {profile.ud && (
-          <img
-            width='24px'
-            height='24px'
-            style={{ marginRight: 8 }}
-            src='/ud.png'
-          />
-        )}
-        {loading
-          ? 'Logout...'
-          : profile.walletAddress
+        {profile.walletAddress
           ? `断开连接 ${formatAddress(profile.walletAddress, 4)}`
           : '连接'}
       </Button>

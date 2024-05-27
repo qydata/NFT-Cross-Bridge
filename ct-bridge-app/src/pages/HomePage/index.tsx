@@ -1,44 +1,1 @@
-import Title from 'antd/lib/typography/Title';
-import PageLayout from 'src/components/PageLayout';
-import { useChainList } from 'src/helpers/wallet';
-import HomePageStyle from './style';
-
-const HomePage: React.FC = () => {
-  const chainList = useChainList();
-  return (
-    <HomePageStyle>
-      <PageLayout>
-        <Title>
-          草田链
-          <br />
-          NFT跨链桥
-        </Title>
-        <div className='image-container'>
-          {chainList.map((chain) => (
-            <img src={`/${chain.value}.svg`} />
-          ))}
-        </div>
-        <div className='bridge'>
-          {`
-                ░░▒▒░░░░░░░░▒▒▒▒▒▒▒▒░░  ▒▒  ░░░░                          
-                ░░▒▒        ░░▒▒▒▒░░░░░░  ░░▒▒░░░░░░░░▒▒░░░░░░                  
-                ░░▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▓▓▒▒▓▓▒▒▒▒▒▒▓▓▒▒            
-              ░░▓▓▓▓░░        ░░▓▓▒▒    ▓▓▒▒▒▒▒▒  ▓▓▓▓▒▒▒▒      ▒▒▒▒            
-              ▒▒░░░░▒▒      ░░▒▒▒▒▒▒    ░░▒▒▒▒░░  ▒▒░░▒▒▒▒      ▒▒▒▒▒▒          
-            ░░░░    ░░░░    ▒▒▓▓  ▓▓░░▒▒  ▒▒▒▒  ▒▒  ░░░░░░    ░░  ░░▓▓          
-          ░░▓▓  ░░    ▒▒  ░░░░▓▓  ░░▒▒    ░░▒▒  ▒▒  ▒▒  ▓▓    ░░  ░░░░▒▒        
-          ▒▒    ▒▒      ░░▒▒  ▓▓    ▓▓▒▒    ▒▒░░  ▒▒░░  ▒▒▒▒░░    ░░  ▓▓        
-        ░░░░            ▒▒░░  ▓▓  ▒▒  ▓▓  ▒▒░░░░  ░░▒▒  ░░▓▓░░    ░░  ░░▒▒      
-      ░░▒▒            ░░░░▓▓  ▓▓░░░░  ▒▒▒▒▒▒▒▒  ▒▒  ▒▒  ░░░░▓▓    ░░    ▓▓      
-      ▓▓        ░░  ░░▒▒    ▓▓▓▓▒▒      ██▒▒▒▒░░  ▒▒▓▓░░░░░░██    ░░    ░░░░    
-    ▒▒░░        ▓▓▓▓▒▒      ██▓▓▓▓  ░░▒▒██▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒░░▒▒▒▒▓▓    
-  ░░██▒▒▒▒▒▒▓▓▓▓▓▓░░▒▒▒▒░░▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▓▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒░░░░░░▓▓░░  
-░░▒▒▒▒▒▒▒▒▒▒▒▒▒▒░░▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒██▒▒░░                    
-          `}
-        </div>
-      </PageLayout>
-    </HomePageStyle>
-  );
-};
-
-export default HomePage;
+import Title from 'antd/lib/typography/Title';import PageLayout from 'src/components/PageLayout';import { useChainList } from 'src/helpers/wallet';import HomePageStyle from './style';import { FC } from 'react';import { Image } from 'antd';import chainData from 'src/components/ChooseAddress/chainData.json';const HomePage: FC = () => {  const chainList = useChainList();  function getLogo(val: string) {    for (const chainDateElement of chainData) {      if (chainDateElement['简称'] == val) {        return chainDateElement['官网地址'] + chainDateElement['图标'];      }    }  }  return (    <HomePageStyle>      <PageLayout>        <Title>          草田链          <br />          NFT跨链桥        </Title>        <div className='image-container'>          {chainList.map((chain, index) => (            <Image              src={getLogo(chain.value)}              key={index}              alt={chain.value}              fallback={`/加载失败.svg`}            />          ))}        </div>        <div className='bridge'>          {`                ░░▒▒░░░░░░░░▒▒▒▒▒▒▒▒░░  ▒▒  ░░░░                                          ░░▒▒        ░░▒▒▒▒░░░░░░  ░░▒▒░░░░░░░░▒▒░░░░░░                                  ░░▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▓▓▒▒▓▓▒▒▒▒▒▒▓▓▒▒                          ░░▓▓▓▓░░        ░░▓▓▒▒    ▓▓▒▒▒▒▒▒  ▓▓▓▓▒▒▒▒      ▒▒▒▒                          ▒▒░░░░▒▒      ░░▒▒▒▒▒▒    ░░▒▒▒▒░░  ▒▒░░▒▒▒▒      ▒▒▒▒▒▒                      ░░░░    ░░░░    ▒▒▓▓  ▓▓░░▒▒  ▒▒▒▒  ▒▒  ░░░░░░    ░░  ░░▓▓                    ░░▓▓  ░░    ▒▒  ░░░░▓▓  ░░▒▒    ░░▒▒  ▒▒  ▒▒  ▓▓    ░░  ░░░░▒▒                  ▒▒    ▒▒      ░░▒▒  ▓▓    ▓▓▒▒    ▒▒░░  ▒▒░░  ▒▒▒▒░░    ░░  ▓▓                ░░░░            ▒▒░░  ▓▓  ▒▒  ▓▓  ▒▒░░░░  ░░▒▒  ░░▓▓░░    ░░  ░░▒▒            ░░▒▒            ░░░░▓▓  ▓▓░░░░  ▒▒▒▒▒▒▒▒  ▒▒  ▒▒  ░░░░▓▓    ░░    ▓▓            ▓▓        ░░  ░░▒▒    ▓▓▓▓▒▒      ██▒▒▒▒░░  ▒▒▓▓░░░░░░██    ░░    ░░░░        ▒▒░░        ▓▓▓▓▒▒      ██▓▓▓▓  ░░▒▒██▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒░░▒▒▒▒▓▓      ░░██▒▒▒▒▒▒▓▓▓▓▓▓░░▒▒▒▒░░▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▓▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒░░░░░░▓▓░░  ░░▒▒▒▒▒▒▒▒▒▒▒▒▒▒░░▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒██▒▒░░                              `}        </div>      </PageLayout>    </HomePageStyle>  );};export default HomePage;

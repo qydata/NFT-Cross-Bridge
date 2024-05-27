@@ -1,5 +1,4 @@
 import {
-  Chain,
   INFTParsedTokenAccount,
   NFTStandard,
   TransferStatus
@@ -22,7 +21,7 @@ export const EMPTY_NFT_DATA: INFTParsedTokenAccount = {
   uiAmountString: '',
   name: '',
   standard: NFTStandard.ERC_721,
-  chain: Chain.ETHEREUM,
+  chain: 'ethereum',
   chainId: 0
 };
 

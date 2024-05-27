@@ -1,61 +1,12 @@
-import { Button, Layout, Menu, PageHeader, Drawer, Radio, Space } from 'antd';
+import { Button, Drawer, Layout, PageHeader } from 'antd';
 import PageLayoutStyle from './style';
 import { useHistory } from 'react-router-dom';
 
 import React, { useState } from 'react';
 import ConnectWalletButton from '../ConnectWalletButton';
-import {
-  AppstoreOutlined,
-  ContainerOutlined,
-  DesktopOutlined,
-  MailOutlined,
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  PieChartOutlined
-} from '@ant-design/icons';
+import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 
 const { Content } = Layout;
-
-// type MenuItem = Required<MenuProps>['items'][number];
-
-function getItem(
-  label: React.ReactNode,
-  key: React.Key,
-  icon?: React.ReactNode,
-  children?: any[],
-  type?: 'group'
-) {
-  return {
-    key,
-    icon,
-    children,
-    label,
-    type
-  };
-}
-
-const items = [
-  getItem('Option 1', '1', <PieChartOutlined />),
-  getItem('Option 2', '2', <DesktopOutlined />),
-  getItem('Option 3', '3', <ContainerOutlined />),
-
-  getItem('Navigation One', 'sub1', <MailOutlined />, [
-    getItem('Option 5', '5'),
-    getItem('Option 6', '6'),
-    getItem('Option 7', '7'),
-    getItem('Option 8', '8')
-  ]),
-
-  getItem('Navigation Two', 'sub2', <AppstoreOutlined />, [
-    getItem('Option 9', '9'),
-    getItem('Option 10', '10'),
-
-    getItem('Submenu', 'sub3', null, [
-      getItem('Option 11', '11'),
-      getItem('Option 12', '12')
-    ])
-  ])
-];
 
 const PageLayout: React.FC<{ showConnectWallet?: boolean }> = ({
   children,
@@ -99,17 +50,16 @@ const PageLayout: React.FC<{ showConnectWallet?: boolean }> = ({
               </Button>
             </div>,
             <div className='pcNav'>
-              {menuData.map((item) => (
+              {menuData.map((item, index) => (
                 <Button
                   type='link'
-                  key={item.key}
+                  key={index}
                   onClick={() => history.push(item.path)}
                 >
                   {item.name}
                 </Button>
               ))}
               <ConnectWalletButton
-                key='5'
                 style={{ visibility: showConnectWallet ? 'visible' : 'hidden' }}
               />
             </div>
@@ -125,11 +75,11 @@ const PageLayout: React.FC<{ showConnectWallet?: boolean }> = ({
           onClose={onClose}
           open={open}
         >
-          {menuData.map((item) => (
+          {menuData.map((item, index) => (
             <div>
               <Button
                 type='link'
-                key={item.key}
+                key={index}
                 onClick={() => history.push(item.path)}
               >
                 {item.name}
@@ -138,7 +88,6 @@ const PageLayout: React.FC<{ showConnectWallet?: boolean }> = ({
           ))}
           <div>
             <ConnectWalletButton
-              key='5'
               style={{ visibility: showConnectWallet ? 'visible' : 'hidden' }}
             />
           </div>

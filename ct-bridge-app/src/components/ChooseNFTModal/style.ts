@@ -8,7 +8,7 @@ const ChooseNFTModalStyle = styled(Modal)`
   }
 
   .manual-button {
-    padding: 0px;
+    padding: 0;
     span {
       text-decoration: underline;
     }
@@ -32,7 +32,7 @@ const ChooseNFTModalStyle = styled(Modal)`
     width: 600px;
   }
   .ant-modal-header {
-    border-radius: 16px 16px 0px 0px;
+    border-radius: 16px 16px 0 0;
   }
 
   .ant-card {
@@ -48,7 +48,7 @@ const ChooseNFTModalStyle = styled(Modal)`
 
     p,
     .ant-typography {
-      margin: 0px;
+      margin: 0;
     }
   }
 
@@ -106,10 +106,10 @@ const ChooseNFTModalStyle = styled(Modal)`
       color: #2c9794;
     }
     .ant-radio-button-wrapper:first-child {
-      border-radius: 10px 0px 0px 10px;
+      border-radius: 10px 0 0 10px;
     }
     .ant-radio-button-wrapper:last-child {
-      border-radius: 0px 10px 10px 0px;
+      border-radius: 0 10px 10px 0;
     }
   }
 

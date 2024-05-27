@@ -9,7 +9,7 @@ const TransferNFTStyle = styled.div`
 
     .ant-typography {
       margin-right: 8px;
-      margin-bottom: 0px;
+      margin-bottom: 0;
     }
     .ant-tag {
       font-size: 16px;
@@ -24,7 +24,7 @@ const TransferNFTStyle = styled.div`
 
     .ant-typography {
       margin-right: 8px;
-      margin-bottom: 0px;
+      margin-bottom: 0;
     }
   }
 `;

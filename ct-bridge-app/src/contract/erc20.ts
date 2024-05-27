@@ -1,11 +1,11 @@
 import erc20AgentAbi from './abi/erc20Agent';
+import erc20Agent from './abi/erc20Agent';
 import erc20Abi from './abi/erc20';
 import { getContract, getProvider } from '.';
 import { message } from 'antd';
 import { ethers } from 'ethers';
 import { EVM } from 'evm';
-import erc20Agent from './abi/erc20Agent';
-import erc1155Abi from './abi/erc1155';
+
 class Contract20 {
   async getApprove(
     contractAddress: string,

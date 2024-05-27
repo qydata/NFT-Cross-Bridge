@@ -9,7 +9,7 @@ const BridgePageStyle = styled.div`
   .box {
     background-color: white;
     padding: 24px;
-    margin: 16px 0px;
+    margin: 16px 0;
 
     border-radius: 1em;
     box-shadow: 2px 2px 8px 2px #e1e1e1;
@@ -39,7 +39,7 @@ const BridgePageStyle = styled.div`
   }
 
   .ant-steps-item-content {
-    padding: 0px 8px;
+    padding: 0 8px;
   }
 
   .ant-alert {

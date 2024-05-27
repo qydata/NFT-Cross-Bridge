@@ -1,11 +1,6 @@
-import { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 import Spin from 'antd/lib/spin';
-import { getRedirectUrl } from 'src/helpers';
 
 const CallbackPage: React.FC = () => {
-  const history = useHistory();
-
   return (
     <div
       style={{

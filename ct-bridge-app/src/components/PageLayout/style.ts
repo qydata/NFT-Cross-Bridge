@@ -39,7 +39,7 @@ const LayoutStyle = styled.div`
     margin-left: 48px;
 
     .ant-btn-link {
-      margin: 0px 8px;
+      margin: 0 8px;
       font-size: 16px;
       font-weight: bold;
     }

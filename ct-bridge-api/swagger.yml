@@ -14,7 +14,7 @@ produces:
   - application/json
 tags:
   - name: erc_20_swap_pairs
-      description: 'Erc20Swap Pair list'
+    description: 'Erc20Swap Pair list'
   - name: erc_20_swaps
     description: 'Erc20Swap list'
   -
@@ -857,5 +857,14 @@ definitions:
         type: string
         x-omitempty: false
       coo_erc_1155_swap_agent:
+        type: string
+        x-omitempty: false
+      sparkchain_chain_id:
+        type: integer
+        x-omitempty: false
+      sparkchain_erc_721_swap_agent:
+        type: string
+        x-omitempty: false
+      sparkchain_erc_1155_swap_agent:
         type: string
         x-omitempty: false

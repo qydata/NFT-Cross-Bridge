@@ -10,7 +10,7 @@ import { getNFTList } from 'src/apis/nft';
 import CloseCircleOutlined from '@ant-design/icons/CloseCircleOutlined';
 import LoadingOutlined from '@ant-design/icons/LoadingOutlined';
 import RedoOutlined from '@ant-design/icons/RedoOutlined';
-import Image from 'src/components/Image';
+import { Image } from 'antd';
 import Input from 'antd/lib/input';
 import Button from 'src/components/Button';
 import { formatAddress } from 'src/helpers/wallet';
@@ -295,6 +295,7 @@ const ChooseNFTModal: React.FC<ChooseNFTModalPropType> = ({
                             height={150}
                             alt={item.name!}
                             src={item.image!}
+                            fallback={`/加载失败.svg`}
                           />
                         )}
                       </>

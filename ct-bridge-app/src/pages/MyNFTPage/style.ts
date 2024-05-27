@@ -57,10 +57,10 @@ const MyNFTPageStyle = styled.div`
       color: #2c9794;
     }
     .ant-radio-button-wrapper:first-child {
-      border-radius: 10px 0px 0px 10px;
+      border-radius: 10px 0 0 10px;
     }
     .ant-radio-button-wrapper:last-child {
-      border-radius: 0px 10px 10px 0px;
+      border-radius: 0 10px 10px 0;
     }
   }
   @media all and (orientation: portrait) {

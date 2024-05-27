@@ -1,13 +1,13 @@
-export enum Chain {
-  BSC = 'bsc',
-  ETHEREUM = 'ethereum',
-  POLYGON = 'polygon',
-  AVALANCHE = 'avalanche',
-  // FANTOM = 'fantom',
-  // WANCHAIN = 'wanchain',
-  CT = 'ct',
-  COO = 'coo'
-}
+// export enum Chain {
+// BSC = 'bsc',
+// ETHEREUM = 'ethereum'
+// POLYGON = 'polygon',
+// AVALANCHE = 'avalanche',
+// FANTOM = 'fantom',
+// WANCHAIN = 'wanchain',
+// CT = 'ct',
+// COO = 'coo'
+// }
 
 export enum NFTStandard {
   ERC_20 = 'erc20',
@@ -57,7 +57,7 @@ export interface INFTParsedTokenAccount {
   logo?: string;
   isNativeAsset?: boolean;
   standard: NFTStandard;
-  chain?: Chain;
+  chain?: string;
   chainId: number;
 }
 
@@ -108,7 +108,7 @@ export type ExternalData = {
 export type ChainData = {
   id: number;
   name: string;
-  value: Chain;
+  value: string;
   registerFee: number;
   transferFee: number;
   currency: string;

@@ -13,7 +13,7 @@ const NFTDetailStyle = styled.div`
 
   .detail-container {
     .ant-typography {
-      margin: 0px;
+      margin: 0;
     }
     .detail {
       margin-bottom: 8px;
